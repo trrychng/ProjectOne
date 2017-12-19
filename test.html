@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Trip test</title>
+
+</head>
+
+
+<body>
+<form id="test-form">
+      <label for="test-input">test</label>
+      <input type="text" id="test-input"><br>
+
+      <!-- Button triggers new movie to be added -->
+      <input id="add-test" type="submit" value="Add a Movie Bro">
+    </form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://impact.brighterplanet.com/badge.js">
+
+<script type="text/javascript">
+
+
+
+	$("#add-test").on("click", function(event) {
+		$.ajax({
+          url: "https://impact.brighterplanet.com/flights.json",
+          method: "GET",
+          origin_airport: "LAX",
+          destination_airport: "JFK",
+          timeframe: 2008-01-01/2008-07-09,
+          comply: iso,
+          key: "36260cbd-28b2-4a18-b352-4d17590d77ac"
+        }).done(function(response) {
+          console.log(response);
+        });
+
+	});
+
+	
+
+</script>
+</script>
+
+</body>
+
+
+
+</html>
