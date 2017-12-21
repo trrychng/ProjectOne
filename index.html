@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Window</title>
+  <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/cerulean/bootstrap.css">
+  <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="login.js" type="text/javascript"></script>
+
+
+</head>
+
+
+<body>
+  <div class="container">
+    <button id="login" type="button">Login With Google</button>
+    <button id="logout" type="button">Logout</button>
+    <div class="form-group" id="newNightOutInputDiv">
+      <label class="col-form-label col-form-label-lg" for="inputLarge">New Night Out</label>
+      <input class="form-control form-control-lg" type="text" placeholder="New Night Out" id="newNightOutInput">
+      <button id="createNightOut" type="button">Create a Night Out</button>
+    </div>
+
+    
+    <div class="form-group" id="joinANightOutDiv">
+        <label for="joinANightOut">Join a Night OUt</label>
+        <select class="form-control" id="joinANightOut">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+  </div>
+</body>
+
+
+
+</html>
