@@ -1,0 +1,25 @@
+/*  CSS  */
+
+/* -- Center content -- */
+.container, .navbar { 
+	max-width: 768px;
+	margin-left: auto;
+	margin-right: auto;
+}
+/* -- Top Navigation Bar -- */
+.navbar-inverse .navbar-brand { color: #ffffff; }
+
+.navbar-inverse * { color: #ffffff; }
+
+/* -- nav pills -- */
+.nav-pills>li>a { 
+	border-radius: 0;
+ }
+.stage { margin-top: 50px; }
+
+/* -- Media Queries -- */
+@media only screen and (max-width: 768px) {
+    body {
+        background-color: lightblue;
+    }
+}
