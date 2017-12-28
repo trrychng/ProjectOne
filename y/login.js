@@ -18,9 +18,12 @@ $("#logout-button").on("click", signOut);
 $("#login-button").on("click", signIn);
 // Functions for various features.  Logout not working.
 function signOut(){
-    event.preventDefault();
-
-  // firebase.auth.signOut();
+   event.preventDefault();
+  firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+  }).catch(function(error) {
+  // An error happened.
+});
   loginWindowLoad();
   console.log("Signed out")
 };
@@ -69,6 +72,7 @@ function loginWindowLoad(){
   $("#logout-button").hide();
   $("#newNightOutInputDiv").hide();
   $("#joinANightOutDiv").hide();
+  $("#login-button").show();
 };
 
 // Start the page
