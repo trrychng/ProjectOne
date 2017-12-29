@@ -50,37 +50,43 @@
  <!-- EVENTS -->
         <div id="home" class="tab-pane fade in active events">
           <div class="section-header">
-            <div class="edit_button">
-              Edit <span class="glyphicon glyphicon-edit"> </span>
-            </div>
 
             <div class="add_button">
               <span class="glyphicon glyphicon-plus"> </span>
             </div>
-            <input type="text" class="form-control" id="event-input" placeholder="Event">
+            <input type="text" class="form-control" id="event-input" placeholder="">
+
+            <div class="edit_button">
+              Edit <span class="glyphicon glyphicon-edit"> </span>
+            </div>
           </div>
 
-          <ul class="list-group">
-            <li class="list-group-item event_item active">Pub 1</li>
-            <li class="list-group-item event_item">Pub 2</li>
-            <li class="list-group-item event_item">Pub 3</li>
+          <ul class="list-group event-list">
+            <li class="list-group-item event_item active">Pub 1  <span class="glyphicon glyphicon-remove-circle"></span></li>
+            <li class="list-group-item event_item">Pub 2  <span class="glyphicon glyphicon-remove-circle"></span></li>
+            <li class="list-group-item event_item">Pub 3  <span class="glyphicon glyphicon-remove-circle"></span></li>
           </ul>
         </div>
  <!-- OVERVIEW -->
         <div id="menu1" class="tab-pane fade overview">
           <div class="section-header">
-            <div class="edit_button">
-              Edit <span class="glyphicon glyphicon-edit"> </span>
-            </div>
 
             <h3>Pub 1</h3> <p>Amount <span>$0</span></p>
 
+            <div class="add_button">
+              <span class="glyphicon glyphicon-plus"> </span>
+            </div>
+            <input type="text" class="form-control" id="amount-input" placeholder="">
+
+            <div class="edit_button">
+              Edit <span class="glyphicon glyphicon-edit"> </span>
+            </div>
           </div>
 
-          <ul class="list-group guest-list">
-            <li class="list-group-item person-1">Person 1</li>
-            <li class="list-group-item person-2">Person 2</li>
-            <li class="list-group-item person-3">Person 3</li>
+          <ul class="list-group person-list">
+            <li class="list-group-item person-item" id="person-1">Person 1 <span class="glyphicon glyphicon-remove-circle"></span></li>
+            <li class="list-group-item person-item" id="person-2">Person 2 <span class="glyphicon glyphicon-remove-circle"></span></li>
+            <li class="list-group-item person-item" id="person-3">Person 3 <span class="glyphicon glyphicon-remove-circle"></span></li>
           </ul>
         </div>
  <!-- MAP -->

@@ -38,7 +38,7 @@
     border-color: #6dbaf1;
 }
 .event_item { 
-	text-align: center;
+	/*text-align: center;*/
 	font-weight: 600;
 	font-size: 16px;
 }
@@ -47,25 +47,32 @@
 }
 
 .section-header {
-	padding: 10px 0;
+	padding: 10px 10px;
 	text-align: center;
 	position: relative;
 	background: #d9d9d9;
 }
+
+#event-input, #amount-input {
+	text-align: center;
+	display: inline-block;
+	margin-left: 5px;
+}
+#event-input {
+	margin-top: 30px;
+	max-width: 390px;
+}
+#amount-input {
+	width: 65px;
+}
+.section-header h3 { margin-top: 0; } 
+
 .add_button { 
-	font-size: 20px;
+	font-size: 18px;
 	position: absolute;
 	top: 10px;
 	left: 20px;
 }
-#event-input {
-	text-align: center;
-	display: inline-block;
-	margin-left: 5px;
-	max-width: 390px; }
-
-.section-header h3 { margin-top: 0; } 
-
 .edit_button { 
 	font-size: 18px;
 	position: absolute;
@@ -73,6 +80,17 @@
 	top: 10px;
 	cursor: pointer;
 }
+.event-list li .glyphicon, .person-list li .glyphicon {
+	font-size: 18px;
+	position: absolute;
+	top: 12px;
+	right: 12px;
+
+	/*display: none;*/
+}
+
+.glyphicon.SHOW { display: inline; }
+
 footer {
 	padding: 10px 0;
 	text-align: center; 
