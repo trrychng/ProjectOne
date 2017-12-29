@@ -30,8 +30,8 @@
         <div class="collapse navbar-collapse" id="myNavbar">
  
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Username</a></li>
+            <li id="loginBtn"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           </ul>
         </div>
       </div> <!-- container-fluid 1 -->
@@ -45,23 +45,68 @@
       </ul>
 
       <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
+ <!-- EVENTS -->
+        <div id="home" class="tab-pane fade in active events">
           <ul class="list-group">
-            <li class="list-group-item">First item</li>
-            <li class="list-group-item">Second item</li>
-            <li class="list-group-item">Third item</li>
+            <li class="list-group-item event_item active">Pub 1</li>
+            <li class="list-group-item event_item">Pub 2</li>
+            <li class="list-group-item event_item">Pub 3</li>
           </ul>
         </div>
-        <div id="menu1" class="tab-pane fade">
-          <h3>Menu 1</h3>
-          <p>Some content in menu 1.</p>
+ <!-- OVERVIEW -->
+        <div id="menu1" class="tab-pane fade overview">
+          <div class="overviewer-header">
+            <h3>Pub 1</h3>
+            <p>Amount <span>$0</span></p>
+          </div>
+          <ul class="list-group guest-list">
+            <li class="list-group-item person-1">Person 1</li>
+            <li class="list-group-item person-2">Person 2</li>
+            <li class="list-group-item person-3">Person 3</li>
+          </ul>
         </div>
-        <div id="menu2" class="tab-pane fade">
-          <h3>Menu 2</h3>
+ <!-- MAP -->
+        <div id="menu2" class="tab-pane fade map">
+          <h3>Map</h3>
           <p>Some content in menu 2.</p>
         </div>
       </div> <!-- nav-pills -->
   </div> <!-- stage -->
+
+
+  <div class="modal fade" id="loginModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Login</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <form role="form">
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+              <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+              <input type="text" class="form-control" id="psw" placeholder="Enter password">
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="" checked>Remember me</label>
+            </div>
+              <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <p><a href="#">Sign Up</a></p>
+          <p>Forgot <a href="#">Password?</a></p>
+        </div>
+      </div>
+      
+    </div>
+  </div>  <!-- Modal -->
 
 </div> <!-- container -->
 
@@ -74,6 +119,14 @@
 
   <script src="./project1.js"></script>
 
+  <script>
+      $(document).ready(function(){
+          $("#loginBtn").on("click", function(){
+              $("#loginModal").modal();
+              console.log("GO");
+          });
+      });
+  </script>
 </body>
 
 </html>

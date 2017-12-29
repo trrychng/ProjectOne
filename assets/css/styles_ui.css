@@ -1,5 +1,8 @@
 /*  CSS  */
 
+
+.modal-footer p { text-align: center; }
+
 /* -- Center content -- */
 .container, .navbar { 
 	max-width: 768px;
@@ -11,15 +14,35 @@
 
 .navbar-inverse * { color: #ffffff; }
 
+
+.stage { margin-top: 50px; }
+
 /* -- nav pills -- */
 .nav-pills>li>a { 
 	border-radius: 0;
  }
-.stage { margin-top: 50px; }
+.list-group-item:first-child {
+     border-top-left-radius: 0; 
+     border-top-right-radius: 0; 
+}
+
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: #24497f;
+    border-color: #24497f;
+}
+.event_item { 
+	text-align: center;
+	font-weight: 600;
+	font-size: 16px;
+}
+.overviewer-header { text-align: center; }
 
 /* -- Media Queries -- */
 @media only screen and (max-width: 768px) {
-    body {
-        background-color: lightblue;
-    }
+	.nav-pills>li {
+	    display: table-cell;
+	    width: 1%;
+	}
 }
