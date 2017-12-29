@@ -1,0 +1,135 @@
+/*  CSS  */
+body {
+	user-select: none; 
+}
+.modal-footer p { text-align: center; }
+
+/* -- Center content -- */
+.container, .navbar { 
+	max-width: 768px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.outter-wrapper {
+	min-height: 620px;
+	border-left: 1px solid #bfbfbf;
+	border-right: 1px solid #bfbfbf;
+	border-bottom: 1px solid #bfbfbf;
+}
+/* -- Top Navigation Bar -- */
+.navbar-inverse .navbar-brand { color: #ffffff; }
+
+.navbar-inverse * { color: #ffffff; }
+
+.stage {
+	min-height: 500px;
+	margin-top: 50px;
+}
+
+/* -- nav pills -- */
+.tab-buttons { position: relative; }
+
+.nav-pills>li>a { 
+	border-radius: 0;
+ }
+.screen { 
+ 	position: absolute;
+ 	top: 0;
+ 	width: 100%;
+}
+.screen.mod { height: 100%; }
+
+.list-group-item:first-child {
+     border-top-left-radius: 0; 
+     border-top-right-radius: 0; 
+}
+
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: #6dbaf1;
+    border-color: #6dbaf1;
+}
+.event_item { 
+	/*text-align: center;*/
+	font-weight: 600;
+	font-size: 16px;
+}
+.tab-content {
+	/*border-top: 1px solid #6dbaf1;*/
+}
+
+.section-header {
+	padding: 10px 10px;
+	text-align: center;
+	position: relative;
+	background: #d9d9d9;
+}
+
+#event-input, #amount-input {
+	text-align: center;
+	display: inline-block;
+	margin-left: 5px;
+}
+#event-input {
+	margin-top: 30px;
+	max-width: 300px;
+}
+#amount-input {
+	width: 95px;
+}
+#add-person { background: #6dbaf1; }
+#add-person .glyphicon-plus-sign {
+	font-size: 20px;
+	color: #ffffff;
+}
+#person-input {
+	margin-left: 10px;
+	display: inline-block;
+	width: 300px;
+}
+.section-header h3 { margin-top: 0; } 
+
+.add_button { 
+	font-size: 18px;
+	position: absolute;
+	top: 10px;
+	left: 20px;
+}
+.edit_button { 
+	font-size: 18px;
+	position: absolute;
+	right: 20px;
+	top: 10px;
+	cursor: pointer;
+}
+.remove_btn {
+	font-size: 18px;
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	display: none;
+}
+.edit_button.mod .edit_text { display: none; }
+
+.edit_button .done_text { display: none; }
+.edit_button.mod .done_text { display: inline; }
+
+.glyphicon.SHOW { display: inline; }
+
+footer {
+	padding: 10px 0;
+	text-align: center; 
+	color: #fff;
+	background: #3f3f3f;
+}
+/* -- nav pills -- */
+.modal-body { padding:40px 50px; }
+
+/* ==== Media Queries ==== */
+@media only screen and (max-width: 768px) {
+	.nav-pills>li {
+	    display: table-cell;
+	    width: 1%;
+	}
+}

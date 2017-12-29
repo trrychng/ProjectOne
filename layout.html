@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <!-- Required meta tags -->
+    <meta charset="utf-8">
+  <title>Pub Crawler</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    
+    
+    <link rel="stylesheet" href="./assets/css/styles_ui.css">
+
+</head>
+
+<body>
+
+<div class="container outter-wrapper">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> 
+          </button>
+          <a class="navbar-brand" href="#">Pub Crawler</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+ 
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Username</a></li>
+            <li id="loginBtn"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+        </div>
+      </div> <!-- container-fluid 1 -->
+    </nav>
+    
+    <div class="stage">
+ <!-- tab button -->
+      <div class="tab-buttons">
+        <ul class="nav nav-pills nav-justified">
+          <li class="active"><a data-toggle="pill" href="#home">Events</a></li>
+          <li><a data-toggle="pill" href="#menu1">Overview</a></li>
+          <li><a data-toggle="pill" href="#menu2">Map</a></li>
+        </ul>
+
+        <div class="screen"></div>
+
+      </div>
+      <div class="tab-content">
+
+ <!-- EVENTS -->
+        <div id="home" class="tab-pane fade in active events">
+          <div class="section-header">
+
+            <div class="add_button">
+              <span class="glyphicon glyphicon-plus"> </span>
+            </div>
+            <input type="text" class="form-control" id="event-input" placeholder="">
+
+            <div class="edit_button">
+              <span class="edit_text">Edit</span>
+              <span class="done_text">Done</span>
+              <span class="glyphicon glyphicon-edit"> </span>
+            </div>
+          </div>
+
+          <ul class="list-group event-list">
+            <li class="list-group-item event_item">Pub 1  <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
+            <li class="list-group-item event_item">Pub 2  <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
+            <li class="list-group-item event_item">Pub 3  <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
+          </ul>
+        </div>
+ <!-- OVERVIEW -->
+        <div id="menu1" class="tab-pane fade overview">
+          <div class="section-header">
+
+            <h3>Pub 1</h3> <p>Amount <span>$0</span></p>
+
+            <div class="add_button">
+              <span class="glyphicon glyphicon-plus"> </span>
+            </div>
+            <input type="text" class="form-control" id="amount-input" placeholder="">
+
+            <div class="edit_button">
+              <span class="edit_text">Edit</span>
+              <span class="done_text">Done</span>
+              <span class="glyphicon glyphicon-edit"> </span>
+            </div>
+          </div>
+
+          <ul class="list-group person-list">
+            <li class="list-group-item person-item" id="add-person"><span class="glyphicon glyphicon-plus-sign"></span>
+              <input type="text" class="form-control" id="person-input" placeholder="">
+            </li>
+
+            <li class="list-group-item person-item" id="person-1">Person 1 <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
+            <li class="list-group-item person-item" id="person-2">Person 2 <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
+            <li class="list-group-item person-item" id="person-3">Person 3 <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
+          </ul>
+        </div>
+ <!-- MAP -->
+        <div id="menu2" class="tab-pane fade map">
+          <h3>Map</h3>
+          <p> </p>
+        </div>
+      </div> <!-- nav-pills -->
+  </div> <!-- stage -->
+
+
+  <div class="modal fade" id="loginModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Login</h4>
+        </div>
+        <div class="modal-body" >
+          <form role="form">
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+              <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+              <input type="text" class="form-control" id="psw" placeholder="Enter password">
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="" checked>Remember me</label>
+            </div>
+              <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <p><a href="#">Sign Up</a></p>
+
+          <!-- <p><a href="#">Sign Up</a> / Forgot <a href="#">Password?</a></p> -->
+        </div>
+      </div>
+      
+    </div>
+  </div>  <!-- Modal -->
+
+  <footer class="footer">
+    <div class="container">
+      <span class="text-muted">2018</span>
+    </div>
+  </footer>
+</div> <!-- container -->
+
+
+<!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="./project1.js"></script>
+
+  <script>
+      $(document).ready(function(){
+          $("#loginBtn").on("click", function(){
+              $("#loginModal").modal();
+              console.log("GO");
+          });
+
+          $(".edit_button").on("click", function() {
+            var edit_btn = $(this);
+            var list = edit_btn.closest(".tab-pane").find(".list-group");
+            if ( edit_btn.hasClass("mod") ) {
+                list.find(".remove_btn").removeClass("SHOW");
+                edit_btn.removeClass("mod");
+                $(".screen").removeClass("mod");
+            }else {
+                list.find(".remove_btn").addClass("SHOW");
+                edit_btn.addClass("mod");
+                $(".screen").addClass("mod");
+            }
+          });
+
+          $(".remove_btn").on("click", function() {
+            $(this).closest("li").remove();
+          });
+
+      });
+  </script>
+</body>
+
+</html>
