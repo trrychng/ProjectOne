@@ -1,6 +1,7 @@
 /*  CSS  */
-
-
+body {
+	user-select: none; 
+}
 .modal-footer p { text-align: center; }
 
 /* -- Center content -- */
@@ -10,22 +11,34 @@
 	margin-right: auto;
 }
 .outter-wrapper {
-	height: 620px;
+	min-height: 620px;
+	border-left: 1px solid #bfbfbf;
+	border-right: 1px solid #bfbfbf;
+	border-bottom: 1px solid #bfbfbf;
 }
 /* -- Top Navigation Bar -- */
 .navbar-inverse .navbar-brand { color: #ffffff; }
 
 .navbar-inverse * { color: #ffffff; }
 
-
-.stage { 
+.stage {
 	min-height: 500px;
-	margin-top: 50px; }
+	margin-top: 50px;
+}
 
 /* -- nav pills -- */
+.tab-buttons { position: relative; }
+
 .nav-pills>li>a { 
 	border-radius: 0;
  }
+.screen { 
+ 	position: absolute;
+ 	top: 0;
+ 	width: 100%;
+}
+.screen.mod { height: 100%; }
+
 .list-group-item:first-child {
      border-top-left-radius: 0; 
      border-top-right-radius: 0; 
@@ -63,9 +76,9 @@
 	max-width: 300px;
 }
 #amount-input {
-	width: 65px;
+	width: 95px;
 }
-#add-person { background: #3f3f3f; }
+#add-person { background: #6dbaf1; }
 #add-person .glyphicon-plus-sign {
 	font-size: 20px;
 	color: #ffffff;
@@ -90,19 +103,17 @@
 	top: 10px;
 	cursor: pointer;
 }
-.event-list li .glyphicon-remove-circle,
-.person-list li .glyphicon-remove-circle {
+.remove_btn {
 	font-size: 18px;
 	position: absolute;
 	top: 12px;
 	right: 12px;
-
-	/*display: none;*/
+	display: none;
 }
 .edit_button.mod .edit_text { display: none; }
 
 .edit_button .done_text { display: none; }
-.edit_button.mod .done_text { display: block; }
+.edit_button.mod .done_text { display: inline; }
 
 .glyphicon.SHOW { display: inline; }
 

@@ -39,12 +39,16 @@
     
     <div class="stage">
  <!-- tab button -->
-      <ul class="nav nav-pills nav-justified">
-        <li class="active"><a data-toggle="pill" href="#home">Events</a></li>
-        <li><a data-toggle="pill" href="#menu1">Overview</a></li>
-        <li><a data-toggle="pill" href="#menu2">Map</a></li>
-      </ul>
-      
+      <div class="tab-buttons">
+        <ul class="nav nav-pills nav-justified">
+          <li class="active"><a data-toggle="pill" href="#home">Events</a></li>
+          <li><a data-toggle="pill" href="#menu1">Overview</a></li>
+          <li><a data-toggle="pill" href="#menu2">Map</a></li>
+        </ul>
+
+        <div class="screen"></div>
+
+      </div>
       <div class="tab-content">
 
  <!-- EVENTS -->
@@ -64,9 +68,9 @@
           </div>
 
           <ul class="list-group event-list">
-            <li class="list-group-item event_item active">Pub 1  <span class="glyphicon glyphicon-remove-circle"></span></li>
-            <li class="list-group-item event_item">Pub 2  <span class="glyphicon glyphicon-remove-circle"></span></li>
-            <li class="list-group-item event_item">Pub 3  <span class="glyphicon glyphicon-remove-circle"></span></li>
+            <li class="list-group-item event_item">Pub 1  <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
+            <li class="list-group-item event_item">Pub 2  <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
+            <li class="list-group-item event_item">Pub 3  <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
           </ul>
         </div>
  <!-- OVERVIEW -->
@@ -92,9 +96,9 @@
               <input type="text" class="form-control" id="person-input" placeholder="">
             </li>
 
-            <li class="list-group-item person-item" id="person-1">Person 1 <span class="glyphicon glyphicon-remove-circle"></span></li>
-            <li class="list-group-item person-item" id="person-2">Person 2 <span class="glyphicon glyphicon-remove-circle"></span></li>
-            <li class="list-group-item person-item" id="person-3">Person 3 <span class="glyphicon glyphicon-remove-circle"></span></li>
+            <li class="list-group-item person-item" id="person-1">Person 1 <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
+            <li class="list-group-item person-item" id="person-2">Person 2 <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
+            <li class="list-group-item person-item" id="person-3">Person 3 <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
           </ul>
         </div>
  <!-- MAP -->
@@ -163,6 +167,25 @@
               $("#loginModal").modal();
               console.log("GO");
           });
+
+          $(".edit_button").on("click", function() {
+            var edit_btn = $(this);
+            var list = edit_btn.closest(".tab-pane").find(".list-group");
+            if ( edit_btn.hasClass("mod") ) {
+                list.find(".remove_btn").removeClass("SHOW");
+                edit_btn.removeClass("mod");
+                $(".screen").removeClass("mod");
+            }else {
+                list.find(".remove_btn").addClass("SHOW");
+                edit_btn.addClass("mod");
+                $(".screen").addClass("mod");
+            }
+          });
+
+          $(".remove_btn").on("click", function() {
+            $(this).closest("li").remove();
+          });
+
       });
   </script>
 </body>
