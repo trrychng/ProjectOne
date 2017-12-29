@@ -60,10 +60,20 @@
 }
 #event-input {
 	margin-top: 30px;
-	max-width: 390px;
+	max-width: 300px;
 }
 #amount-input {
 	width: 65px;
+}
+#add-person { background: #3f3f3f; }
+#add-person .glyphicon-plus-sign {
+	font-size: 20px;
+	color: #ffffff;
+}
+#person-input {
+	margin-left: 10px;
+	display: inline-block;
+	width: 300px;
 }
 .section-header h3 { margin-top: 0; } 
 
@@ -80,7 +90,8 @@
 	top: 10px;
 	cursor: pointer;
 }
-.event-list li .glyphicon, .person-list li .glyphicon {
+.event-list li .glyphicon-remove-circle,
+.person-list li .glyphicon-remove-circle {
 	font-size: 18px;
 	position: absolute;
 	top: 12px;
@@ -88,6 +99,10 @@
 
 	/*display: none;*/
 }
+.edit_button.mod .edit_text { display: none; }
+
+.edit_button .done_text { display: none; }
+.edit_button.mod .done_text { display: block; }
 
 .glyphicon.SHOW { display: inline; }
 
