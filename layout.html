@@ -96,22 +96,23 @@
             <button class="cancel-btn">Cancel</button>
             <button class="done-btn">Done</button>
           </div>  <!-- mod-header -->
-
-          <form action=" " id="event-form">
-            <div class="form-group">
-              <input type="text" class="form-control" id="name-event" placeholder="EVENT NAME">
-            </div>
-            <div class="form-group">
-              <input type="location" class="form-control" id="loc-event" placeholder="LOCATION">
-            </div>
-
-            <div class="form-group guest-list">
-              <input type="text" class="form-control guest" id="name-" placeholder="NAME">
-            </div>
-          </form>
           
-          <div class="add-guest-btn"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</div>
-          
+          <div class="form-wrapper">
+            <form action=" " id="event-form">
+              <div class="form-group">
+                <input type="text" class="form-control" id="name-event" placeholder="EVENT NAME">
+              </div>
+              <div class="form-group">
+                <input type="location" class="form-control" id="loc-event" placeholder="LOCATION">
+              </div>
+
+              <div class="form-group guest-list">
+                <div><input type="text" class="form-control guest" data-index="0" id="name-" placeholder="NAME"></div>
+              </div>
+            </form>
+            
+            <div class="add-guest-btn" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</a></div>
+          </div>  <!-- form-wrapper -->
 
         </div>  <!-- mod-conten -->
       </div>  <!-- mod -->
@@ -182,8 +183,7 @@
     var saveInfo;
 
     var event_id = event_list.find(".SELECTED").attr("id");
-
-    var guest_field = $('<input type="text" class="form-control guest" placeholder="NAME">');
+    var guest_field = '<input type="text" class="form-control guest" data-index="0" placeholder="NAME">';
 
     // Initialize Firebase
     var config = {
@@ -234,8 +234,10 @@
         var event_loc = $("#loc-event").val().trim();
     };
 
-    function resetForm() {
-      current_form.find(".guest-list").html(guest_field);
+    function resetForm() {          
+      var div = $("<div>").append(guest_field);
+
+      current_form.find(".guest-list").html(div);
       current_form.find("input").val("");
     };
       $(document).ready(function(){
@@ -254,6 +256,7 @@
               $("body").addClass("mod");
               mode = "ADD";
               // ADD event function
+              // Set function to addEvent
               saveData = addEvent;
 
             }else
@@ -262,6 +265,7 @@
               mode = "EDIT";
               // EDIT event function
               editEvent();
+              // Set function to setData
               saveData = setData;
 
             }else {
@@ -287,10 +291,18 @@
 
             $("body").removeClass();
         });
-
+// Add new guest
         $(".add-guest-btn").on("click touchend", function(event) {
+          var guestInputs = $(".guest-list");
+          var i = guestInputs.find(".guest").length;
 
-          current_form.find(".guest-list").append(guest_field);
+          $(guest_field).attr("data-index", i);
+
+          var div = $("<div>").append(guest_field);
+
+          guestInputs.append(div);
+
+          // $(".form-wrapper").css({"overflow-y": "scroll"});
 
         });
 
