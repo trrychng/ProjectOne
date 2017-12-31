@@ -71,7 +71,7 @@
  <!-- OVERVIEW -->
         <div id="overview" class="tab-pane fade overview">
           <div class="section-header">
-
+ <!-- When in overview this should change to currently selected -->
             <h3 class="event-title">Pub 1</h3> <p>Amount <span>$0</span></p>
 
             <button class="cal-btn">Calculate</button>
@@ -89,6 +89,7 @@
         </div>
       </div> <!-- nav-pills -->
 
+<!-- Add/Edit window slides up -->
       <div id="mod">
         <div class="mod-content">
           <div class="mod-header">
@@ -103,24 +104,25 @@
             <div class="form-group">
               <input type="location" class="form-control" id="loc-event" placeholder="LOCATION">
             </div>
-          </form>
 
-          <form action=" " id="overview-form">
-            <div class="form-group">
-              <input type="text" class="form-control" id="person-name" placeholder="NAME">
+            <div class="form-group guest-list">
+              <input type="text" class="form-control guest" id="name-" placeholder="NAME">
             </div>
           </form>
+          
+          <div class="add-guest-btn"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</div>
+          
 
         </div>  <!-- mod-conten -->
       </div>  <!-- mod -->
 
   </div> <!-- stage -->
 
-
+  <!-- Login window content -->
   <div class="modal fade" id="loginModal" role="dialog">
     <div class="modal-dialog">
     
-      <!-- Modal content-->
+      <!-- Modal content -->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -169,7 +171,7 @@
   <!-- <script type="text/javascript" src="assets/javascript/logic.js"></script> -->
 
   <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-  
+
   <script>
 
     var current_form =  $(".mod-content").find("#event-form");
@@ -237,25 +239,22 @@
             console.log("GO");
         });
 
+        // On click for Add and Edit button
         $(".section-header").on("click touchend", "button", function(event) {
             var target = $(this);
             var active = target.parents(".active").attr("id");
 
-            // console.log(active);
-            $(".mod-content").find("form").hide();
-
-            current_form = $("#" + active + "-form");
-            current_form.show();
-
             if ( $(target).hasClass("add-btn") ) {
               $("body").addClass("mod");
               mode = "ADD";
+              // ADD event function
               saveData = addEvent;
 
             }else
             if ( $(target).hasClass("edit-btn") ) {
               $("body").addClass("mod");
               mode = "EDIT";
+              // EDIT event function
               editEvent();
               saveData = setData;
 
@@ -280,6 +279,14 @@
             }
 
             $("body").removeClass();
+        });
+
+        $(".add-guest-btn").on("click touchend", function(event) {
+
+          var person_temp = $('<input type="text" class="form-control guest" placeholder="NAME">');
+
+          current_form.find(".guest-list").append(person_temp);
+
         });
 
 // Add class SELECTED on Event when clicked
