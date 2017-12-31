@@ -4,7 +4,7 @@ body {
 }
 .modal-footer p { text-align: center; }
 
-/* -- Center content -- */
+/* ---- Center content ---- */
 .container, .navbar { 
 	max-width: 768px;
 	margin-left: auto;
@@ -16,28 +16,26 @@ body {
 	border-right: 1px solid #bfbfbf;
 	border-bottom: 1px solid #bfbfbf;
 }
-/* -- Top Navigation Bar -- */
+/* ---- Top Navigation Bar ---- */
 .navbar-inverse .navbar-brand { color: #ffffff; }
 
 .navbar-inverse * { color: #ffffff; }
 
 .stage {
+	position: relative;
 	min-height: 500px;
 	margin-top: 50px;
 }
+.stage button {
+	width: 90px;
+}
 
-/* -- nav pills -- */
+/* ---- nav pills ---- */
 .tab-buttons { position: relative; }
 
 .nav-pills>li>a { 
 	border-radius: 0;
  }
-.screen { 
- 	position: absolute;
- 	top: 0;
- 	width: 100%;
-}
-.screen.mod { height: 100%; }
 
 .list-group-item:first-child {
      border-top-left-radius: 0; 
@@ -50,17 +48,21 @@ body {
     background-color: #6dbaf1;
     border-color: #6dbaf1;
 }
-.event_item { 
+.event-item { 
 	/*text-align: center;*/
 	font-weight: 600;
 	font-size: 16px;
 }
+.event-item.SELECTED { background-color: #f6b008; }
+
 .tab-content {
 	/*border-top: 1px solid #6dbaf1;*/
 }
 
-.section-header {
-	padding: 10px 10px;
+.section-header, .mod-header { 
+	min-height: 50px;
+	padding-top: 20px;
+	padding-bottom: 5px;
 	text-align: center;
 	position: relative;
 	background: #d9d9d9;
@@ -79,6 +81,7 @@ body {
 	width: 95px;
 }
 #add-person { background: #6dbaf1; }
+
 #add-person .glyphicon-plus-sign {
 	font-size: 20px;
 	color: #ffffff;
@@ -90,40 +93,64 @@ body {
 }
 .section-header h3 { margin-top: 0; } 
 
-.add_button { 
+.section-header button, .mod-header button  {
 	font-size: 18px;
 	position: absolute;
 	top: 10px;
-	left: 20px;
 }
-.edit_button { 
-	font-size: 18px;
-	position: absolute;
-	right: 20px;
-	top: 10px;
-	cursor: pointer;
+/* ---- Add / Edit Button ---- */
+.section-header .add-btn,
+.mod-header .cancel-btn {
+	left: 10px;
 }
-.remove_btn {
+.section-header .edit-btn,
+.mod-header .done-btn {
+	right: 10px;
+}
+.remove-btn {
 	font-size: 18px;
 	position: absolute;
 	top: 12px;
 	right: 12px;
 	display: none;
 }
-.edit_button.mod .edit_text { display: none; }
+.edit-btn.mod .edit-text { display: none; }
 
-.edit_button .done_text { display: none; }
-.edit_button.mod .done_text { display: inline; }
+.edit-btn .done-text { display: none; }
+.edit-btn.mod .done-text { display: inline; }
 
 .glyphicon.SHOW { display: inline; }
 
+#mod {
+	position: absolute;
+	overflow: hidden;
+	bottom: 0;
+	width: 100%;
+	height: 0;
+	transition: height 0.3s ease-out;
+}
+.mod-content form {
+	display: none;
+}
+
+body.mod #mod {
+	height: 100%;
+}
+#mod .mod-content {
+	width: 100%;
+	height: 100%;
+	background-color: #ffffff;
+}
+.mod-header { 
+	margin-bottom: 10px;
+}
 footer {
 	padding: 10px 0;
 	text-align: center; 
 	color: #fff;
 	background: #3f3f3f;
 }
-/* -- nav pills -- */
+/* ---- nav pills ---- */
 .modal-body { padding:40px 50px; }
 
 /* ==== Media Queries ==== */
