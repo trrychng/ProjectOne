@@ -107,6 +107,11 @@ body {
 .mod-header .done-btn {
 	right: 10px;
 }
+button.cal-btn {
+	right: 10px;
+	width: auto;
+	padding: 10px 10px;
+}
 .remove-btn {
 	font-size: 18px;
 	position: absolute;

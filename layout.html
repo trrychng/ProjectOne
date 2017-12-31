@@ -64,31 +64,22 @@
           </div>
 
           <ul class="list-group" id="event-list">
-            <li class="list-group-item event-item SELECTED" id="Event 1">Event 1</li>
-            <li class="list-group-item event-item" id="Event 2">Event 2</li>
-            <li class="list-group-item event-item" id="Event 3">Event 3</li>
+            <!-- <li class="list-group-item event-item SELECTED" id="Event 1">Event 1</li> -->
+
           </ul>
         </div>
  <!-- OVERVIEW -->
         <div id="overview" class="tab-pane fade overview">
           <div class="section-header">
 
-            <h3>Pub 1</h3> <p>Amount <span>$0</span></p>
+            <h3 class="event-title">Pub 1</h3> <p>Amount <span>$0</span></p>
 
-            <button class="add-btn">
-              <span class="glyphicon glyphicon-plus"> </span>
-            </button>
-
-            <button class="edit-btn">
-              <span>Edit</span>
-              <span class="glyphicon glyphicon-edit"> </span>
-            </button>
+            <button class="cal-btn">Calculate</button>
           </div>
 
           <ul class="list-group person-list">
-            <li class="list-group-item person-item" id="person-1">Person 1 <span class="glyphicon glyphicon-remove-circle remove-btn"></span></li>
-            <li class="list-group-item person-item" id="person-2">Person 2 <span class="glyphicon glyphicon-remove-circle remove-btn"></span></li>
-            <li class="list-group-item person-item" id="person-3">Person 3 <span class="glyphicon glyphicon-remove-circle remove-btn"></span></li>
+<!--             <li class="list-group-item person-item" id="person-1">Person 1 <span class="glyphicon glyphicon-remove-circle remove-btn"></span></li> -->
+
           </ul>
         </div>
  <!-- MAP -->
@@ -177,22 +168,10 @@
 
   <!-- <script type="text/javascript" src="assets/javascript/logic.js"></script> -->
 
-
+  <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+  
   <script>
-    var eventData = [
-      {
-        eventName: "Event 1",
-        eventLoc: "Blah 1"
-      },
-      {
-        eventName: "Event 2",
-        eventLoc: "Blah 2"
-      },
-      {
-        eventName: "Event 3",
-        eventLoc: "Blah 3"
-      }
-    ];
+
     var current_form =  $(".mod-content").find("#event-form");
     var event_teplate = $('#people-template').html();
     var event_list = $("#event-list");
@@ -201,6 +180,28 @@
     var saveInfo;
 
     var event_id = event_list.find(".SELECTED").attr("id");
+
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDIyoNcQc7sOf_wYKAwMM5CwxFK-z5Ysyc",
+      authDomain: "pub-crawl-21b1d.firebaseapp.com",
+      databaseURL: "https://pub-crawl-21b1d.firebaseio.com",
+      projectId: "pub-crawl-21b1d",
+      storageBucket: "pub-crawl-21b1d.appspot.com",
+      messagingSenderId: "478647783482"
+    };
+    firebase.initializeApp(config);
+
+    var database = firebase.database();
+
+    function writeUserData(userId, name, email, imageUrl) {
+      firebase.database().ref('users/' + userId).set({
+        username: name,
+        email: email,
+        profile_picture : imageUrl
+      });
+    };
+
 
     function addEvent() {
         var form = form;
@@ -239,25 +240,29 @@
         $(".section-header").on("click touchend", "button", function(event) {
             var target = $(this);
             var active = target.parents(".active").attr("id");
-            console.log(active);
+
+            // console.log(active);
             $(".mod-content").find("form").hide();
 
             current_form = $("#" + active + "-form");
             current_form.show();
 
             if ( $(target).hasClass("add-btn") ) {
+              $("body").addClass("mod");
               mode = "ADD";
               saveData = addEvent;
-              // console.log("mode");
+
             }else
             if ( $(target).hasClass("edit-btn") ) {
+              $("body").addClass("mod");
               mode = "EDIT";
               editEvent();
               saveData = setData;
-              // console.log("mode");
+
+            }else {
+
             }
             // console.log(target);
-            $("body").addClass("mod");
         });
 
         $(".mod-header").on("click touchend", "button", function(event) {
