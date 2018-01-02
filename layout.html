@@ -41,79 +41,118 @@
  <!-- tab button -->
       <div class="tab-buttons">
         <ul class="nav nav-pills nav-justified">
-          <li class="active"><a data-toggle="pill" href="#home">Events</a></li>
-          <li><a data-toggle="pill" href="#menu1">Overview</a></li>
-          <li><a data-toggle="pill" href="#menu2">Map</a></li>
+          <li class="active"><a data-toggle="pill" href="#event">Events</a></li>
+          <li><a data-toggle="pill" href="#overview">Overview</a></li>
+          <li><a data-toggle="pill" href="#map">Map</a></li>
         </ul>
-
-        <div class="screen"></div>
 
       </div>
       <div class="tab-content">
 
  <!-- EVENTS -->
-        <div id="home" class="tab-pane fade in active events">
+        <div id="event" class="tab-pane fade in active events">
           <div class="section-header">
 
-            <div class="add_button">
+            <button id="addEvent-btn" class="add-btn">
               <span class="glyphicon glyphicon-plus"> </span>
-            </div>
-            <input type="text" class="form-control" id="event-input" placeholder="">
+            </button>
 
-            <div class="edit_button">
-              <span class="edit_text">Edit</span>
-              <span class="done_text">Done</span>
+            <button class="edit-btn">
+              <span>Edit</span>
               <span class="glyphicon glyphicon-edit"> </span>
-            </div>
+            </button>
           </div>
 
-          <ul class="list-group event-list">
-            <li class="list-group-item event_item">Pub 1  <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
-            <li class="list-group-item event_item">Pub 2  <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
-            <li class="list-group-item event_item">Pub 3  <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
+          <ul class="list-group" id="event-list">
+            <!-- <li class="list-group-item event-item SELECTED" id="Event 1">Event 1</li> -->
+
           </ul>
         </div>
  <!-- OVERVIEW -->
-        <div id="menu1" class="tab-pane fade overview">
+        <div id="overview" class="tab-pane fade overview">
           <div class="section-header">
+ <!-- When in overview this should change to currently selected -->
+            <h3 class="event-title">Pub 1</h3> <p>Amount <span>$0</span></p>
 
-            <h3>Pub 1</h3> <p>Amount <span>$0</span></p>
-
-            <div class="add_button">
-              <span class="glyphicon glyphicon-plus"> </span>
-            </div>
-            <input type="text" class="form-control" id="amount-input" placeholder="">
-
-            <div class="edit_button">
-              <span class="edit_text">Edit</span>
-              <span class="done_text">Done</span>
-              <span class="glyphicon glyphicon-edit"> </span>
-            </div>
+            <button class="cal-btn">Calculate</button>
           </div>
 
           <ul class="list-group person-list">
-            <li class="list-group-item person-item" id="add-person"><span class="glyphicon glyphicon-plus-sign"></span>
-              <input type="text" class="form-control" id="person-input" placeholder="">
-            </li>
+<!--             <li class="list-group-item person-item" id="person-1">Person 1 <span class="glyphicon glyphicon-remove-circle remove-btn"></span></li> -->
 
-            <li class="list-group-item person-item" id="person-1">Person 1 <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
-            <li class="list-group-item person-item" id="person-2">Person 2 <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
-            <li class="list-group-item person-item" id="person-3">Person 3 <span class="glyphicon glyphicon-remove-circle remove_btn"></span></li>
           </ul>
         </div>
  <!-- MAP -->
-        <div id="menu2" class="tab-pane fade map">
+        <div id="map" class="tab-pane fade map">
           <h3>Map</h3>
           <p> </p>
         </div>
       </div> <!-- nav-pills -->
+
+<!-- Add mod slides up -->
+      <div id="add" class="mod">
+        <div class="mod-content" id="add-mod-content">
+          <div class="mod-header">
+            <button class="cancel-btn">Cancel</button>
+            <button class="done-btn">Done</button>
+          </div>  <!-- mod-header -->
+          
+          <div class="form-wrapper">
+            <form action=" " id="event-form">
+              <div class="form-group">
+                <input type="text" class="form-control" id="name-event" placeholder="EVENT NAME">
+              </div>
+              <div class="form-group">
+                <input type="location" class="form-control" id="loc-event" placeholder="LOCATION">
+              </div>
+
+              <div class="form-group guest-list">
+                <div><input type="text" class="form-control guest" data-index="1" id="name-" placeholder="NAME"></div>
+              </div>
+            </form>
+            
+            <div class="add-guest-btn" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</a></div>
+          </div>  <!-- form-wrapper -->
+
+        </div>  <!-- add-mod-conten -->
+
+      </div>  <!-- add mod -->
+
+<!-- Edit mod slides up -->
+      <div id="edit" class="mod">
+        <div class="mod-content" id="add-mod-content">
+          <div class="mod-header">
+            <button class="cancel-btn">Cancel</button>
+            <button class="done-btn">Done</button>
+          </div>  <!-- mod-header -->
+          
+          <div class="form-wrapper">
+            <form action=" " id="edit-form">
+<!--               <div class="form-group">
+                <input type="text" class="form-control" id="name-event" placeholder="EVENT NAME">
+              </div>
+              <div class="form-group">
+                <input type="location" class="form-control" id="loc-event" placeholder="LOCATION">
+              </div>
+
+              <div class="form-group guest-list">
+                <div><input type="text" class="form-control guest" data-index="0" id="name-" placeholder="NAME"></div>
+              </div>
+            </form>
+            
+            <div class="add-guest-btn" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</a></div> -->
+          </div>  <!-- form-wrapper -->
+
+        </div>  <!-- add-mod-conten -->
+
+      </div>  <!-- edit mod -->
   </div> <!-- stage -->
 
-
+  <!-- Login window content -->
   <div class="modal fade" id="loginModal" role="dialog">
     <div class="modal-dialog">
     
-      <!-- Modal content-->
+      <!-- Modal content -->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -159,32 +198,169 @@
 <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  <script src="./project1.js"></script>
+  <!-- <script type="text/javascript" src="assets/javascript/logic.js"></script> -->
+
+  <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
 
   <script>
+
+    var current_form =  $(".mod-content").find("#event-form");
+    var event_teplate = $('#people-template').html();
+    var event_list = $("#event-list");
+    var person_list = $("#person-list");
+    var mode;
+    var saveInfo;
+
+    var event_id = event_list.find(".SELECTED").attr("id");
+
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDIyoNcQc7sOf_wYKAwMM5CwxFK-z5Ysyc",
+      authDomain: "pub-crawl-21b1d.firebaseapp.com",
+      databaseURL: "https://pub-crawl-21b1d.firebaseio.com",
+      projectId: "pub-crawl-21b1d",
+      storageBucket: "pub-crawl-21b1d.appspot.com",
+      messagingSenderId: "478647783482"
+    };
+    firebase.initializeApp(config);
+
+    var database = firebase.database();
+
+    function addEvent() {
+        var form = form;
+        var event_templete = $('<li class="list-group-item event-item">');
+
+        var event_name = $("#name-event").val().trim();
+        var event_loc = $("#loc-event").val().trim();
+
+        var guest_list = $('.guest-list').find(".guest");
+        
+        var guestList = [];
+        var amounts = {};
+
+        for ( var i = 0; i < guest_list.length; i++) {
+          var name = $(guest_list[i]).val().trim();
+          guestList.push( name );
+          amounts.name = 0;
+        }
+
+        if ( event_name !== "" ) {
+          
+          var data = {
+            eventName: event,
+            location: loc,
+            guestList: guest,
+            amounts: amounts
+
+          }
+
+          database.ref('events/' + event_name).set(data);
+
+          event_templete.text(event_name).attr("id", event_name).addClass("SELECTED");
+          
+          event_list.find("li").removeClass("SELECTED");
+          event_list.append(event_templete);
+
+        }
+
+        resetForm();
+    };
+    function editEvent(){
+      // var data = eventData.find( function(x) { return x.eventName == event_id } );
+
+      // $("#name-event").val(data.eventName);
+      // $("#loc-event").val(data.eventLoc);
+    };
+
+    function setData() {
+        var event_name = $("#name-event").val().trim();
+        var event_loc = $("#loc-event").val().trim();
+
+        writeUserData()
+    };
+
+    function resetForm() {
+      var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
+      var div = $("<div>").append(guest_field);
+
+      current_form.find(".guest-list").html(div);
+      current_form.find("input").val("");
+    };
       $(document).ready(function(){
-          $("#loginBtn").on("click", function(){
-              $("#loginModal").modal();
-              console.log("GO");
-          });
 
-          $(".edit_button").on("click", function() {
-            var edit_btn = $(this);
-            var list = edit_btn.closest(".tab-pane").find(".list-group");
-            if ( edit_btn.hasClass("mod") ) {
-                list.find(".remove_btn").removeClass("SHOW");
-                edit_btn.removeClass("mod");
-                $(".screen").removeClass("mod");
+        $("#loginBtn").on("click", function(){
+            $("#loginModal").modal();
+            // console.log("GO");
+        });
+
+        // On click for Add and Edit button
+        $(".section-header").on("click touchend", "button", function(event) {
+            var target = $(this);
+            var active = target.parents(".active").attr("id");
+
+            if ( $(target).hasClass("add-btn") ) {
+              $("body").addClass("ADDING");
+              mode = "ADD";
+              // ADD event function
+              // Set function to addEvent
+              saveData = addEvent;
+
+            }else
+            if ( $(target).hasClass("edit-btn") ) {
+              $("body").addClass("EDITING");
+              mode = "EDIT";
+              // EDIT event function
+              editEvent();
+              // Set function to setData
+              saveData = setData;
+
             }else {
-                list.find(".remove_btn").addClass("SHOW");
-                edit_btn.addClass("mod");
-                $(".screen").addClass("mod");
-            }
-          });
 
-          $(".remove_btn").on("click", function() {
-            $(this).closest("li").remove();
-          });
+            }
+            // console.log(target);
+        });
+
+        $(".mod-header").on("click touchend", "button", function(event) {
+            var target = event.target;
+            console.log( $(target) );
+
+            if ( $(target).hasClass("cancel-btn") ) {
+              // console.log("CANCEL");
+              resetForm();
+            }else
+            if ( $(target).hasClass("done-btn") ) {
+              // console.log("DONE");
+
+              // EDIT EVENT HERE
+              saveData();
+            }
+
+            $("body").removeClass();
+        });
+// Add new guest
+        $(".add-guest-btn").on("click touchend", function(event) {
+          var guestInputs = $(".guest-list");
+          var i = guestInputs.find(".guest").length + 1;
+
+          var guest_field = '<input type="text" class="form-control guest" data-index="' + i + ' " placeholder="NAME">';
+
+          var div = $("<div>").append(guest_field);
+
+          guestInputs.append(div);
+
+          // $(".form-wrapper").css({"overflow-y": "scroll"});
+
+        });
+
+// Add class SELECTED on Event when clicked
+        $("#event-list").on("click touchend", ".event-item", function(event) {
+            $(this).parent().find("li").removeClass("SELECTED");
+            var target = event.target;
+            $(target).addClass("SELECTED");
+            event_id = event_list.find(".SELECTED").attr("id");
+            console.log(event_id);
+        });
+
 
       });
   </script>
