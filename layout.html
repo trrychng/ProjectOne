@@ -89,9 +89,9 @@
         </div>
       </div> <!-- nav-pills -->
 
-<!-- Add/Edit window slides up -->
-      <div id="mod">
-        <div class="mod-content">
+<!-- Add mod slides up -->
+      <div id="add" class="mod">
+        <div class="mod-content" id="add-mod-content">
           <div class="mod-header">
             <button class="cancel-btn">Cancel</button>
             <button class="done-btn">Done</button>
@@ -107,16 +107,45 @@
               </div>
 
               <div class="form-group guest-list">
-                <div><input type="text" class="form-control guest" data-index="0" id="name-" placeholder="NAME"></div>
+                <div><input type="text" class="form-control guest" data-index="1" id="name-" placeholder="NAME"></div>
               </div>
             </form>
             
             <div class="add-guest-btn" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</a></div>
           </div>  <!-- form-wrapper -->
 
-        </div>  <!-- mod-conten -->
-      </div>  <!-- mod -->
+        </div>  <!-- add-mod-conten -->
 
+      </div>  <!-- add mod -->
+
+<!-- Edit mod slides up -->
+      <div id="edit" class="mod">
+        <div class="mod-content" id="add-mod-content">
+          <div class="mod-header">
+            <button class="cancel-btn">Cancel</button>
+            <button class="done-btn">Done</button>
+          </div>  <!-- mod-header -->
+          
+          <div class="form-wrapper">
+            <form action=" " id="edit-form">
+<!--               <div class="form-group">
+                <input type="text" class="form-control" id="name-event" placeholder="EVENT NAME">
+              </div>
+              <div class="form-group">
+                <input type="location" class="form-control" id="loc-event" placeholder="LOCATION">
+              </div>
+
+              <div class="form-group guest-list">
+                <div><input type="text" class="form-control guest" data-index="0" id="name-" placeholder="NAME"></div>
+              </div>
+            </form>
+            
+            <div class="add-guest-btn" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</a></div> -->
+          </div>  <!-- form-wrapper -->
+
+        </div>  <!-- add-mod-conten -->
+
+      </div>  <!-- edit mod -->
   </div> <!-- stage -->
 
   <!-- Login window content -->
@@ -183,7 +212,6 @@
     var saveInfo;
 
     var event_id = event_list.find(".SELECTED").attr("id");
-    var guest_field = '<input type="text" class="form-control guest" data-index="0" placeholder="NAME">';
 
     // Initialize Firebase
     var config = {
@@ -198,15 +226,6 @@
 
     var database = firebase.database();
 
-    function writeUserData(userId, name, email, imageUrl) {
-      firebase.database().ref('users/' + userId).set({
-        username: name,
-        email: email,
-        profile_picture : imageUrl
-      });
-    };
-
-
     function addEvent() {
         var form = form;
         var event_templete = $('<li class="list-group-item event-item">');
@@ -214,27 +233,54 @@
         var event_name = $("#name-event").val().trim();
         var event_loc = $("#loc-event").val().trim();
 
+        var guest_list = $('.guest-list').find(".guest");
+        
+        var guestList = [];
+        var amounts = {};
+
+        for ( var i = 0; i < guest_list.length; i++) {
+          var name = $(guest_list[i]).val().trim();
+          guestList.push( name );
+          amounts.name = 0;
+        }
+
         if ( event_name !== "" ) {
+          
+          var data = {
+            eventName: event,
+            location: loc,
+            guestList: guest,
+            amounts: amounts
+
+          }
+
+          database.ref('events/' + event_name).set(data);
+
           event_templete.text(event_name).attr("id", event_name).addClass("SELECTED");
           
           event_list.find("li").removeClass("SELECTED");
           event_list.append(event_templete);
+
         }
+
         resetForm();
     };
     function editEvent(){
-      var data = eventData.find( function(x) { return x.eventName == event_id } );
+      // var data = eventData.find( function(x) { return x.eventName == event_id } );
 
-      $("#name-event").val(data.eventName);
-      $("#loc-event").val(data.eventLoc);
-
+      // $("#name-event").val(data.eventName);
+      // $("#loc-event").val(data.eventLoc);
     };
+
     function setData() {
         var event_name = $("#name-event").val().trim();
         var event_loc = $("#loc-event").val().trim();
+
+        writeUserData()
     };
 
-    function resetForm() {          
+    function resetForm() {
+      var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
       var div = $("<div>").append(guest_field);
 
       current_form.find(".guest-list").html(div);
@@ -244,7 +290,7 @@
 
         $("#loginBtn").on("click", function(){
             $("#loginModal").modal();
-            console.log("GO");
+            // console.log("GO");
         });
 
         // On click for Add and Edit button
@@ -253,7 +299,7 @@
             var active = target.parents(".active").attr("id");
 
             if ( $(target).hasClass("add-btn") ) {
-              $("body").addClass("mod");
+              $("body").addClass("ADDING");
               mode = "ADD";
               // ADD event function
               // Set function to addEvent
@@ -261,7 +307,7 @@
 
             }else
             if ( $(target).hasClass("edit-btn") ) {
-              $("body").addClass("mod");
+              $("body").addClass("EDITING");
               mode = "EDIT";
               // EDIT event function
               editEvent();
@@ -294,9 +340,9 @@
 // Add new guest
         $(".add-guest-btn").on("click touchend", function(event) {
           var guestInputs = $(".guest-list");
-          var i = guestInputs.find(".guest").length;
+          var i = guestInputs.find(".guest").length + 1;
 
-          $(guest_field).attr("data-index", i);
+          var guest_field = '<input type="text" class="form-control guest" data-index="' + i + ' " placeholder="NAME">';
 
           var div = $("<div>").append(guest_field);
 
