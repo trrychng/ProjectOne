@@ -228,13 +228,27 @@
 
     var database = firebase.database();
 
-    database.on('value', function(snapshot) {
-      snapshot.val();
-    });
+    database.ref().on('value', function(snapshot) {
+      var eventData = snapshot.val();
 
+      if ( eventData == null) return;
+
+      renderList(eventData)
+    });
+    function renderList(data) {
+      var event_templete = $('<li class="list-group-item event-item">');
+
+      for ( var key in data) {
+        console.log(data.key);
+        
+        // event_templete.text(data.key.eventName).attr("id", data.key.eventName).addClass("SELECTED");
+        
+        // event_list.find("li").removeClass("SELECTED");
+        // event_list.append(event_templete);
+      }
+    };
     function addEvent() {
         var form = form;
-        var event_templete = $('<li class="list-group-item event-item">');
 
         var event_name = $("#name-event").val().trim();
         var event_loc = $("#loc-event").val().trim();
@@ -248,7 +262,7 @@
             eventName : event_name,
             location : event_loc,
             users: [],
-            tabs: {}
+            amounts: {}
           }
   
   
@@ -256,17 +270,11 @@
             var name = $(guestList[i]).val().trim();
             
             data.users.push(name);
-            data.tabs[name] = { name : name, amount: 0 };
+            data.amounts[name] = { name : name, amount: 0 };
           };
 
 
           database.ref('events/' + event_name).set(data);
-
-          // event_templete.text(event_name).attr("id", event_name).addClass("SELECTED");
-          
-          // event_list.find("li").removeClass("SELECTED");
-          // event_list.append(event_templete);
-
         }
 
         resetForm();
