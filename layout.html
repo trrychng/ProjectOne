@@ -72,7 +72,10 @@
         <div id="overview" class="tab-pane fade overview">
           <div class="section-header">
  <!-- When in overview this should change to currently selected -->
-            <h3 class="event-title">Pub 1</h3> <p>Amount <span>$0</span></p>
+            <h3 class="event-title">Pub 1</h3>
+            <p class="event-loc">location</p>
+            <p>Amount <span>$0</span></p>
+
 
             <button class="cal-btn">Calculate</button>
           </div>
@@ -207,7 +210,7 @@
     var current_form =  $(".mod-content").find("#event-form");
     var event_teplate = $('#people-template').html();
     var event_list = $("#event-list");
-    var person_list = $("#person-list");
+    var person_list = $(".person-list");
     var mode;
     var saveInfo;
 
@@ -228,7 +231,7 @@
 
     var database = firebase.database();
 
-    database.ref().on('value', function(snapshot) {
+    database.ref('events').on('value', function(snapshot) {
       var eventData = snapshot.val();
 
       if ( eventData == null) return;
@@ -239,13 +242,34 @@
       var event_templete = $('<li class="list-group-item event-item">');
 
       for ( var key in data) {
-        console.log(data.key);
+        // console.log(data[key]);
         
-        // event_templete.text(data.key.eventName).attr("id", data.key.eventName).addClass("SELECTED");
+        event_templete.text(data[key].eventName).attr("id", data[key].eventName).addClass("SELECTED");
         
-        // event_list.find("li").removeClass("SELECTED");
-        // event_list.append(event_templete);
+        event_list.find("li").removeClass("SELECTED");
+        event_list.append(event_templete);
+
+
       }
+      var selected = $(".event-item.SELECTED").text();
+
+      $(".event-title").text(selected);
+      
+      $(".event-loc").text(data[selected].location);
+
+      var amounts = data[selected].amounts;
+
+      for (var key in amounts) {
+        console.log(amounts[key]);
+        var person = '<li class="list-group-item person-item" id="' 
+            + amounts[key].name + '">' 
+            + amounts[key].name + '  <span>'
+            + amounts[key].amount + '</span></li>'
+
+        console.log(person);
+        person_list.append(person);
+      }
+
     };
     function addEvent() {
         var form = form;
