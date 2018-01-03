@@ -211,6 +211,8 @@
     var mode;
     var saveInfo;
 
+    var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
+
     var event_id = event_list.find(".SELECTED").attr("id");
 
     // Initialize Firebase
@@ -226,6 +228,10 @@
 
     var database = firebase.database();
 
+    database.on('value', function(snapshot) {
+      snapshot.val();
+    });
+
     function addEvent() {
         var form = form;
         var event_templete = $('<li class="list-group-item event-item">');
@@ -233,33 +239,33 @@
         var event_name = $("#name-event").val().trim();
         var event_loc = $("#loc-event").val().trim();
 
-        var guest_list = $('.guest-list').find(".guest");
-        
-        var guestList = [];
-        var amounts = {};
-
-        for ( var i = 0; i < guest_list.length; i++) {
-          var name = $(guest_list[i]).val().trim();
-          guestList.push( name );
-          amounts.name = 0;
-        }
+        var guestList = $('.guest-list').find(".guest");
 
         if ( event_name !== "" ) {
-          
-          var data = {
-            eventName: event,
-            location: loc,
-            guestList: guest,
-            amounts: amounts
 
+
+          var data = {
+            eventName : event_name,
+            location : event_loc,
+            users: [],
+            tabs: {}
           }
+  
+  
+          for ( var i = 0; i < guestList.length; i++) {
+            var name = $(guestList[i]).val().trim();
+            
+            data.users.push(name);
+            data.tabs[name] = { name : name, amount: 0 };
+          };
+
 
           database.ref('events/' + event_name).set(data);
 
-          event_templete.text(event_name).attr("id", event_name).addClass("SELECTED");
+          // event_templete.text(event_name).attr("id", event_name).addClass("SELECTED");
           
-          event_list.find("li").removeClass("SELECTED");
-          event_list.append(event_templete);
+          // event_list.find("li").removeClass("SELECTED");
+          // event_list.append(event_templete);
 
         }
 
@@ -276,11 +282,10 @@
         var event_name = $("#name-event").val().trim();
         var event_loc = $("#loc-event").val().trim();
 
-        writeUserData()
+        
     };
 
     function resetForm() {
-      var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
       var div = $("<div>").append(guest_field);
 
       current_form.find(".guest-list").html(div);
@@ -297,7 +302,8 @@
         $(".section-header").on("click touchend", "button", function(event) {
             var target = $(this);
             var active = target.parents(".active").attr("id");
-
+            $("#name-event").focus();
+            
             if ( $(target).hasClass("add-btn") ) {
               $("body").addClass("ADDING");
               mode = "ADD";
@@ -322,7 +328,7 @@
 
         $(".mod-header").on("click touchend", "button", function(event) {
             var target = event.target;
-            console.log( $(target) );
+            // console.log( $(target) );
 
             if ( $(target).hasClass("cancel-btn") ) {
               // console.log("CANCEL");
@@ -341,14 +347,12 @@
         $(".add-guest-btn").on("click touchend", function(event) {
           var guestInputs = $(".guest-list");
           var i = guestInputs.find(".guest").length + 1;
+          var add_input = $(guest_field).attr("data-index", i);
 
-          var guest_field = '<input type="text" class="form-control guest" data-index="' + i + ' " placeholder="NAME">';
-
-          var div = $("<div>").append(guest_field);
-
+          var div = $("<div>").append(add_input);
           guestInputs.append(div);
 
-          // $(".form-wrapper").css({"overflow-y": "scroll"});
+          setTimeout(function() { guestInputs.find(".guest").last().focus() }, 50);
 
         });
 
