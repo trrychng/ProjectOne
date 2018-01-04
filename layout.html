@@ -201,8 +201,9 @@
 <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  <!-- <script type="text/javascript" src="assets/javascript/logic.js"></script> -->
-
+<!--   <script type="text/javascript" src="assets/javascript/logic.js"></script>
+ -->
+  <script type="text/javascript" src="assets/javascript/logic.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
 
   <script>
@@ -239,36 +240,37 @@
       renderList(eventData)
     });
     function renderList(data) {
-      var event_templete = $('<li class="list-group-item event-item">');
+      var event_templete = '<li class="list-group-item event-item">';
 
       for ( var key in data) {
         // console.log(data[key]);
+        console.log(data[key]);
         
-        event_templete.text(data[key].eventName).attr("id", data[key].eventName).addClass("SELECTED");
+        var event_item = $(event_templete);
+
+        event_item.text(data[key].eventName).attr("id", data[key].eventName);
         
-        event_list.find("li").removeClass("SELECTED");
-        event_list.append(event_templete);
-
-
+        // event_list.find("li").removeClass("SELECTED");
+        event_list.append(event_item);
       }
-      var selected = $(".event-item.SELECTED").text();
+      var selected = $(".event-item.SELECTED").attr("id");
 
-      $(".event-title").text(selected);
+//       $(".event-title").text(selected);
       
-      $(".event-loc").text(data[selected].location);
+//       $(".event-loc").text(data[selected].location);
+// console.log(selected);
+//       var amounts = data[selected].amounts;
 
-      var amounts = data[selected].amounts;
+//       for (var key in amounts) {
+//         // console.log(amounts[key]);
+//         var person = '<li class="list-group-item person-item" id="' 
+//             + amounts[key].name + '">' 
+//             + amounts[key].name + '  <span>'
+//             + amounts[key].amount + '</span></li>'
 
-      for (var key in amounts) {
-        console.log(amounts[key]);
-        var person = '<li class="list-group-item person-item" id="' 
-            + amounts[key].name + '">' 
-            + amounts[key].name + '  <span>'
-            + amounts[key].amount + '</span></li>'
-
-        console.log(person);
-        person_list.append(person);
-      }
+//         console.log(person);
+//         person_list.append(person);
+//       }
 
     };
     function addEvent() {
