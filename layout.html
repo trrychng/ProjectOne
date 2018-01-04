@@ -72,7 +72,10 @@
         <div id="overview" class="tab-pane fade overview">
           <div class="section-header">
  <!-- When in overview this should change to currently selected -->
-            <h3 class="event-title">Pub 1</h3> <p>Amount <span>$0</span></p>
+            <h3 class="event-title">Pub 1</h3>
+            <p class="event-loc">location</p>
+            <p>Amount <span>$0</span></p>
+
 
             <button class="cal-btn">Calculate</button>
           </div>
@@ -100,7 +103,7 @@
           <div class="form-wrapper">
             <form action=" " id="event-form">
               <div class="form-group">
-                <input type="text" class="form-control" id="name-event" placeholder="EVENT NAME">
+                <input type="text" class="form-control" id="name-event" placeholder="PLACE">
               </div>
               <div class="form-group">
                 <input type="location" class="form-control" id="loc-event" placeholder="LOCATION">
@@ -198,8 +201,9 @@
 <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  <!-- <script type="text/javascript" src="assets/javascript/logic.js"></script> -->
+<!--   <script type="text/javascript" src="assets/javascript/logic.js"></script> -->
 
+  <script type="text/javascript" src="assets/javascript/login.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
 
   <script>
@@ -207,9 +211,11 @@
     var current_form =  $(".mod-content").find("#event-form");
     var event_teplate = $('#people-template').html();
     var event_list = $("#event-list");
-    var person_list = $("#person-list");
+    var person_list = $(".person-list");
     var mode;
     var saveInfo;
+
+    var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
 
     var event_id = event_list.find(".SELECTED").attr("id");
 
@@ -226,40 +232,57 @@
 
     var database = firebase.database();
 
+// Child Added
+  database.ref("events").on("child_added", function(snapshot) {
+    data = snapshot.val();
+
+    console.log(data);
+
+    renderList(data);
+  });
+
+// Add New Event
+    function renderList(data) {
+
+      if ( data == null) return;
+
+      event_list.find("li").removeClass("SELECTED");
+      
+      var event_templete = '<li class="list-group-item event-item">';
+        
+      var event_item = $(event_templete);
+
+      event_item.text(data.place).attr("id", data.place).addClass("SELECTED");
+      
+      event_list.prepend(event_item);
+    };
     function addEvent() {
         var form = form;
-        var event_templete = $('<li class="list-group-item event-item">');
 
         var event_name = $("#name-event").val().trim();
         var event_loc = $("#loc-event").val().trim();
 
-        var guest_list = $('.guest-list').find(".guest");
-        
-        var guestList = [];
-        var amounts = {};
-
-        for ( var i = 0; i < guest_list.length; i++) {
-          var name = $(guest_list[i]).val().trim();
-          guestList.push( name );
-          amounts.name = 0;
-        }
+        var guestList = $('.guest-list').find(".guest");
 
         if ( event_name !== "" ) {
-          
+
+
           var data = {
-            eventName: event,
-            location: loc,
-            guestList: guest,
-            amounts: amounts
-
+            place : event_name,
+            location : event_loc,
+            users: [],
+            amount: 0
           }
+  
+  
+          for ( var i = 0; i < guestList.length; i++) {
+            var name = $(guestList[i]).val().trim();
+            
+            data.users.push( [name, 0] );
+          };
 
-          database.ref('events/' + event_name).set(data);
 
-          event_templete.text(event_name).attr("id", event_name).addClass("SELECTED");
-          
-          event_list.find("li").removeClass("SELECTED");
-          event_list.append(event_templete);
+          database.ref("events/" + event_name).set(data);
 
         }
 
@@ -276,11 +299,9 @@
         var event_name = $("#name-event").val().trim();
         var event_loc = $("#loc-event").val().trim();
 
-        writeUserData()
     };
 
     function resetForm() {
-      var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
       var div = $("<div>").append(guest_field);
 
       current_form.find(".guest-list").html(div);
@@ -297,7 +318,8 @@
         $(".section-header").on("click touchend", "button", function(event) {
             var target = $(this);
             var active = target.parents(".active").attr("id");
-
+            $("#name-event").focus();
+            
             if ( $(target).hasClass("add-btn") ) {
               $("body").addClass("ADDING");
               mode = "ADD";
@@ -322,7 +344,7 @@
 
         $(".mod-header").on("click touchend", "button", function(event) {
             var target = event.target;
-            console.log( $(target) );
+            // console.log( $(target) );
 
             if ( $(target).hasClass("cancel-btn") ) {
               // console.log("CANCEL");
@@ -341,14 +363,12 @@
         $(".add-guest-btn").on("click touchend", function(event) {
           var guestInputs = $(".guest-list");
           var i = guestInputs.find(".guest").length + 1;
+          var add_input = $(guest_field).attr("data-index", i);
 
-          var guest_field = '<input type="text" class="form-control guest" data-index="' + i + ' " placeholder="NAME">';
-
-          var div = $("<div>").append(guest_field);
-
+          var div = $("<div>").append(add_input);
           guestInputs.append(div);
 
-          // $(".form-wrapper").css({"overflow-y": "scroll"});
+          setTimeout(function() { guestInputs.find(".guest").last().focus() }, 50);
 
         });
 
@@ -358,9 +378,35 @@
             var target = event.target;
             $(target).addClass("SELECTED");
             event_id = event_list.find(".SELECTED").attr("id");
-            console.log(event_id);
-        });
 
+            console.log(event_id);
+
+            $(".event-title").text(event_id);            
+            
+            database.ref("events").once("value", function(snapshot){
+            var data = snapshot.val();
+
+            $(".event-loc").text(data[event_id].location);
+            
+            var users = data[event_id].users;
+
+            person_list.html("");
+            
+              for (var i = 0; i < users.length; i++) {
+                var name = users[i][0];
+                var amount = users[i][1];
+console.log(name);
+                var person = '<li class="list-group-item person-item" id="' 
+                    + name + '">' 
+                    + name + '  <span>'
+                    + amount + '</span></li>'
+
+                console.log(person);
+                person_list.append(person);
+              }
+            });
+
+        });
 
       });
   </script>
