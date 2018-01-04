@@ -219,8 +219,6 @@
 
     var event_id = event_list.find(".SELECTED").attr("id");
 
-    var eventData;
-
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyDIyoNcQc7sOf_wYKAwMM5CwxFK-z5Ysyc",
@@ -238,10 +236,9 @@
   database.ref("events").on("child_added", function(snapshot) {
     data = snapshot.val();
 
-    console.log(data.place);
+    console.log(data);
 
     renderList(data);
-
   });
 
 // Add New Event
@@ -274,15 +271,14 @@
             place : event_name,
             location : event_loc,
             users: [],
-            amounts: {}
+            amount: 0
           }
   
   
           for ( var i = 0; i < guestList.length; i++) {
             var name = $(guestList[i]).val().trim();
             
-            data.users.push(name);
-            data.amounts = { name : name, amount: 0 };
+            data.users.push( [name, 0] );
           };
 
 
@@ -384,26 +380,32 @@
             event_id = event_list.find(".SELECTED").attr("id");
 
             console.log(event_id);
-            
-            var data = eventData
 
-            $(".event-title").text(event_id);
+            $(".event-title").text(event_id);            
             
+            database.ref("events").once("value", function(snapshot){
+            var data = snapshot.val();
+
             $(".event-loc").text(data[event_id].location);
+            
+            var users = data[event_id].users;
 
-            var amounts = data[event_id].amounts;
             person_list.html("");
             
-            for (var key in amounts) {
-              // console.log(amounts[key]);
-              var person = '<li class="list-group-item person-item" id="' 
-                  + amounts[key].name + '">' 
-                  + amounts[key].name + '  <span>'
-                  + amounts[key].amount + '</span></li>'
+              for (var i = 0; i < users.length; i++) {
+                var name = users[i][0];
+                var amount = users[i][1];
+console.log(name);
+                var person = '<li class="list-group-item person-item" id="' 
+                    + name + '">' 
+                    + name + '  <span>'
+                    + amount + '</span></li>'
 
-              console.log(person);
-              person_list.append(person);
-            }
+                console.log(person);
+                person_list.append(person);
+              }
+            });
+
         });
 
       });
