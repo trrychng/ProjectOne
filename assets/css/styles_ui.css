@@ -150,7 +150,11 @@ body.EDITING #edit.mod {
 .add-guest-btn a:hover { color: #333; }
 
 
-.guest-list .guest { margin-bottom: 15px; }
+.guest-list .guest,
+.guest-list .amount { 
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
 
 footer {
 	padding: 10px 0;

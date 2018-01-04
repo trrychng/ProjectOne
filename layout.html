@@ -80,10 +80,9 @@
             <button class="cal-btn">Calculate</button>
           </div>
 
-          <ul class="list-group person-list">
-<!--             <li class="list-group-item person-item" id="person-1">Person 1 <span class="glyphicon glyphicon-remove-circle remove-btn"></span></li> -->
+          <div id="display">
 
-          </ul>
+          </div>
         </div>
  <!-- MAP -->
         <div id="map" class="tab-pane fade map">
@@ -110,7 +109,10 @@
               </div>
 
               <div class="form-group guest-list">
-                <div><input type="text" class="form-control guest" data-index="1" id="name-" placeholder="NAME"></div>
+                <div>
+                  <input type="text" class="form-control guest" data-index="1" id="name-" placeholder="NAME">
+                  <input type="text" class="form-control amount" data-index="1" id="name-" placeholder="AMOUNT">
+                </div>
               </div>
             </form>
             
@@ -216,6 +218,7 @@
     var saveInfo;
 
     var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
+    var amount_field = '<input type="text" class="form-control amount" data-index="1" placeholder="AMOUNT">';
 
     var event_id = event_list.find(".SELECTED").attr("id");
 
@@ -263,6 +266,9 @@
         var event_loc = $("#loc-event").val().trim();
 
         var guestList = $('.guest-list').find(".guest");
+        var userAmount = $('.guest-list').find(".amount");
+
+console.log(userAmount);
 
         if ( event_name !== "" ) {
 
@@ -277,8 +283,9 @@
   
           for ( var i = 0; i < guestList.length; i++) {
             var name = $(guestList[i]).val().trim();
+            var amount = $(userAmount[i]).val();
             
-            data.users.push( [name, 0] );
+            data.users.push( [name, amount] );
           };
 
 
@@ -302,7 +309,9 @@
     };
 
     function resetForm() {
-      var div = $("<div>").append(guest_field);
+      var div = $("<div>")
+      div.append(guest_field);
+      div.append(amount_field);
 
       current_form.find(".guest-list").html(div);
       current_form.find("input").val("");
@@ -362,13 +371,13 @@
 // Add new guest
         $(".add-guest-btn").on("click touchend", function(event) {
           var guestInputs = $(".guest-list");
-          var i = guestInputs.find(".guest").length + 1;
-          var add_input = $(guest_field).attr("data-index", i);
+          // var i = guestInputs.find(".guest").length + 1;
+          // var add_input = $(guest_field).attr("data-index", i);
 
-          var div = $("<div>").append(add_input);
+          var div = $("<div>")
+          div.append(guest_field);
+          div.append(amount_field);
           guestInputs.append(div);
-
-          setTimeout(function() { guestInputs.find(".guest").last().focus() }, 50);
 
         });
 
@@ -384,26 +393,25 @@
             $(".event-title").text(event_id);            
             
             database.ref("events").once("value", function(snapshot){
-            var data = snapshot.val();
+              var data = snapshot.val();
 
-            $(".event-loc").text(data[event_id].location);
-            
-            var users = data[event_id].users;
+              $(".event-loc").text(data[event_id].location);
+              
+              var users = data[event_id].users;
 
-            person_list.html("");
-            
               for (var i = 0; i < users.length; i++) {
                 var name = users[i][0];
-                var amount = users[i][1];
-console.log(name);
-                var person = '<li class="list-group-item person-item" id="' 
-                    + name + '">' 
-                    + name + '  <span>'
-                    + amount + '</span></li>'
+                var value = users[i][1];
 
-                console.log(person);
-                person_list.append(person);
+                console.log(value);
               }
+              
+              $("#display").html("");
+              
+
+              $("#display").append( );
+
+
             });
 
         });
