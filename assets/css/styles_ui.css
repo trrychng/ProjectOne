@@ -53,7 +53,7 @@ body {
 	font-weight: 600;
 	font-size: 16px;
 }
-.event-item.SELECTED { background-color: #f6b008; }
+.event-item.SELECTED { color: #fff; background-color: #3391b7; }
 
 .tab-content {
 	/*border-top: 1px solid #6dbaf1;*/
