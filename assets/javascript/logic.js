@@ -344,6 +344,15 @@ function isInt(value) { //for later
       });
     };
 
+   function removeField() {
+
+      $(".remove-btn").on("click touchend", function() {
+          $(this).parent().remove();
+
+      });
+    };
+
+
     function setData() {
       editForm;
         // var event_name = $("#name-event").val().trim();
