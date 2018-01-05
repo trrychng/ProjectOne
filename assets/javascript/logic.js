@@ -44,19 +44,19 @@ var selectPlace;
 
 
 // add additional jusers
-$(".add-guest-btn").on("click touchend", function(event) {
-	let newuser="";
+// $(".add-guest-btn").on("click touchend", function(event) {
+	// let newuser="";
 	// var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
  //    var amount_field = '<input type="text" class="form-control amount" data-index="1" placeholder="AMOUNT">';
-    var guestInputs = $(".guest-list");
+    // var guestInputs = $(".guest-list");
     // var i = guestInputs.find(".guest").length + 1;
     // var add_input = $(guest_field).attr("data-index", i);
-    newuser = $("#adduserdata").val().trim() //retrieve value in adduserdata 
-	userHtml='<div class="row"><div class="col-lg-3">'+newuser+'</div><div class="col-lg-6"><div class="input-group"></span><span class="input-group-addon">$</span><input id="'+newuser+'" type="text" class="form-control guest" aria-label="Text input with checkbox" value=0 ></div></div></div>' //HTML for new user
+    // newuser = $("#adduserdata").val().trim() //retrieve value in adduserdata 
+	// userHtml='<div class="row"><div class="col-lg-3">'+newuser+'</div><div class="col-lg-6"><div class="input-group"></span><span class="input-group-addon">$</span><input id="'+newuser+'" type="text" class="form-control guest" aria-label="Text input with checkbox" value=0 ></div></div></div>' //HTML for new user
  
-    guestInputs.append(userHtml);
+    // guestInputs.append(userHtml);
 
-});
+// });
 
 
 
