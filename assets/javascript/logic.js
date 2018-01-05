@@ -585,3 +585,112 @@ function distribution (caldata, share){
 		}
 	}
 }//eof
+
+
+
+
+var lat;
+var lng;
+
+function zomatoAPI(lat, lng) {
+	var api = "07fb2fd782ce7a28dadddf704c580aea"
+	var url = "https://developers.zomato.com/api/v2.1/geocode?lat="+lat+"&lon="+lng+"&apikey="+api
+	
+	
+	  $.ajax({
+	  url: url,
+	  method: 'GET',
+	  }).done(function(result) {
+		  
+		  
+		  
+		  data=result;
+		  
+		  nearBy(data);
+		  console.log(result)
+  
+		  
+})
+
+}
+	
+function nearBy(data){
+	console.log(data.nearby_restaurants)
+	
+	for(i = 0 ; i < data.nearby_restaurants.length; i++)
+	{
+	
+	var restaurant=data.nearby_restaurants[i].restaurant;
+	
+	$("#near").append("<p> Restaurant: " +restaurant.name);
+	$("#near").append("<p> Address: " +restaurant.location.address);
+	$("#near").append("<p> Address: " +restaurant.location.address);
+	$("#near").append("<br>");
+		
+		
+		
+	}
+	
+}
+
+
+
+	
+function googleMapAPI(selectPlace) {
+	var api = "AIzaSyAE2QXwu_BlcPaXEGiKqajbr0pGwKnF3dM"
+	lat=0;
+	lng=0;
+	
+	console.log(selectPlace.location)
+	
+	var addString = selectPlace.location.split(' ').join('+');
+
+	var url = "https://maps.googleapis.com/maps/api/geocode/json?address="+addString+"&key="+api
+	
+	
+	  $.ajax({
+	  url: url,
+	  method: 'GET',
+	  }).done(function(result) {
+		  
+		  
+		  
+		  
+		  data=result
+		  
+		  console.log(data)
+		  lat=data.results[0].geometry.location.lat;
+		  lng=data.results[0].geometry.location.lng;
+		  
+		  
+		  console.log(lat);
+		  
+		  
+		   initMap(lat,lng);
+		   zomatoAPI(lat, lng);
+		   
+		  
+})
+
+
+	
+}
+	
+	
+ function initMap(lat, lng) {
+		
+		
+        var uluru = {lat: lat, lng: lng};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 3,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+		
+  }
+	
+
+	
