@@ -263,7 +263,7 @@ $(".add-guest-btn").on("click touchend", function(event) {
 	let newuser="";
 	var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
     var amount_field = '<input type="text" class="form-control amount" data-index="1" placeholder="AMOUNT">';
-    var guestInputs = $(".guest-list");
+    var guestInputs = $(".guest-list-add");
     var i = guestInputs.find(".guest").length + 1;
     var add_input = $(guest_field).attr("data-index", i);
     newuser = $("#adduserdata").val().trim() //retrieve value in adduserdata 
