@@ -31,7 +31,7 @@
  
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Username</a></li>
-            <li id="loginBtn"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li id="login-button"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           </ul>
         </div>
       </div> <!-- container-fluid 1 -->
@@ -133,19 +133,15 @@
           
           <div class="form-wrapper">
             <form action=" " id="edit-form">
-<!--               <div class="form-group">
-                <input type="text" class="form-control" id="name-event" placeholder="EVENT NAME">
-              </div>
               <div class="form-group">
-                <input type="location" class="form-control" id="loc-event" placeholder="LOCATION">
-              </div>
 
               <div class="form-group guest-list">
                 <div><input type="text" class="form-control guest" data-index="0" id="name-" placeholder="NAME"></div>
+                <input type="text" class="form-control amount" data-index="1" id="name-" placeholder="AMOUNT">
               </div>
             </form>
             
-            <div class="add-guest-btn" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</a></div> -->
+            <div class="add-guest-btn" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</a></div>
           </div>  <!-- form-wrapper -->
 
         </div>  <!-- add-mod-conten -->
@@ -154,10 +150,10 @@
   </div> <!-- stage -->
 
   <!-- Login window content -->
-  <div class="modal fade" id="loginModal" role="dialog">
+<!--   <div class="modal fade" id="loginModal" role="dialog">
     <div class="modal-dialog">
     
-      <!-- Modal content -->
+
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -182,12 +178,12 @@
         <div class="modal-footer">
           <p><a href="#">Sign Up</a></p>
 
-          <!-- <p><a href="#">Sign Up</a> / Forgot <a href="#">Password?</a></p> -->
+          <p><a href="#">Sign Up</a> / Forgot <a href="#">Password?</a></p>
         </div>
       </div>
       
     </div>
-  </div>  <!-- Modal -->
+  </div> -->  <!-- Modal -->
 
   <footer class="footer">
     <div class="container">
@@ -220,7 +216,11 @@
     var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
     var amount_field = '<input type="text" class="form-control amount" data-index="1" placeholder="AMOUNT">';
 
+    var current_selec;
+
     var event_id = event_list.find(".SELECTED").attr("id");
+
+    var editForm = $("#edit-form");
 
     // Initialize Firebase
     var config = {
@@ -256,7 +256,9 @@
       var event_item = $(event_templete);
 
       event_item.text(data.place).attr("id", data.place).addClass("SELECTED");
-      
+
+      current_selec = data.place;
+
       event_list.prepend(event_item);
     };
     function addEvent() {
@@ -295,11 +297,24 @@ console.log(userAmount);
 
         resetForm();
     };
-    function editEvent(){
-      // var data = eventData.find( function(x) { return x.eventName == event_id } );
+    function editEvent() {
+      var eventName_input = $('#edit-name-event');
+      var eventLoc_input = $('#edit-loc');
+      var guestName_input = '<input type="text" class="form-control guest" data-index="0" placeholder="NAME">';
 
-      // $("#name-event").val(data.eventName);
-      // $("#loc-event").val(data.eventLoc);
+      var appendItems = [];
+
+      database.ref("events").once("value", function(snapshot){
+          var data = snapshot.val();
+          
+
+          var event = data[current_selec];
+          
+          editForm.append( $("eventName_val").val(current_selec) )
+
+          console.log(event.place);
+
+      });
     };
 
     function setData() {
@@ -313,10 +328,14 @@ console.log(userAmount);
       div.append(guest_field);
       div.append(amount_field);
 
+      console.log("reset");
+
       current_form.find(".guest-list").html(div);
+      editForm.find(".guest-list").html(div);
+
       current_form.find("input").val("");
     };
-      $(document).ready(function(){
+      $(document).ready(function() {
 
         $("#loginBtn").on("click", function(){
             $("#loginModal").modal();
@@ -386,7 +405,7 @@ console.log(userAmount);
             $(this).parent().find("li").removeClass("SELECTED");
             var target = event.target;
             $(target).addClass("SELECTED");
-            event_id = event_list.find(".SELECTED").attr("id");
+            current_selec = event_id = event_list.find(".SELECTED").attr("id");
 
             console.log(event_id);
 
