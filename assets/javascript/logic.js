@@ -370,18 +370,18 @@ function isInt(value) { //for later
 
             $("body").removeClass();
         });
-// // Add new guest
-//         $(".add-guest-btn").on("click touchend", function(event) {
-//           var guestInputs = $(".guest-list");
-//           // var i = guestInputs.find(".guest").length + 1;
-//           // var add_input = $(guest_field).attr("data-index", i);
+// Add new guest
+        $(".add-guest-btn").on("click touchend", function(event) {
+           var guestInputs = $(".guest-list");
+           // var i = guestInputs.find(".guest").length + 1;
+           // var add_input = $(guest_field).attr("data-index", i);
 
-//           var div = $("<div>")
-//           div.append(guest_field);
-//           div.append(amount_field);
-//           guestInputs.append(div);
+          var div = $("<div>")
+           div.append(guest_field);
+          div.append(amount_field);
+           guestInputs.append(div);
 
-//         });
+});
 
 // Add class SELECTED on Event when clicked
 
