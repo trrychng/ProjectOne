@@ -8,6 +8,28 @@ var ryanAmount;
 var entry;
 var users=[];
 var selectPlace;
+
+
+// RC
+var current_form =  $(".mod-content").find("#event-form");
+var event_teplate = $('#people-template').html();
+var event_list = $("#event-list");
+var person_list = $(".person-list");
+var mode;
+var saveInfo;
+
+var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
+var amount_field = '<input type="text" class="form-control amount" data-index="1" placeholder="AMOUNT">';
+
+var current_selec;
+
+var event_id = event_list.find(".SELECTED").attr("id");
+
+var editForm = $("#edit-form");
+
+var remove_button = '<span class="glyphicon glyphicon-remove-circle remove-btn"></span>';
+// ==========
+
 // function renderButtons() {
 
 //   $("#buttons-view").empty();
@@ -160,7 +182,9 @@ function isInt(value) { //for later
       var event_item = $(event_templete);
 
       event_item.text(data.place).attr("id", data.place).addClass("SELECTED");
-      
+
+      current_selec = data.place;
+
       event_list.prepend(event_item);
     };
 
@@ -284,40 +308,63 @@ function isInt(value) { //for later
 // }; //eof
 
 
+// RC
+    function editEvent() {
+      editForm.empty();
+      var eventName_input = $('#edit-name-event');
+      var eventLoc_input = $('#edit-loc');
+      var guestName_input = '<input type="text" class="form-control guest" data-index="0" placeholder="NAME">';
+
+      var appendItems = [];
+      var editInputs = $(".edit-list");
 
 
+      database.ref("events").once("value", function(snapshot){
+          var data = snapshot.val();
+          
+          var users = data[current_selec].users;
 
+          for (var i = 0; i < users.length; i++ ) {
+            var name = users[i].name;
+            var amount = users[i].amount;
 
+            var guestInput = guest_field;
+            var amountInput = amount_field;
 
+            var div = $('<div class="group-entry">')
 
-  
+            div.html( remove_button + guestInput +  amountInput);
+            div.find(".guest").val(name);
+            div.find(".amount").val(amount);
 
+            editForm.append(div);
+          }
+          removeField();
 
-
-
-
-
-
-    function editEvent(){
-      // var data = eventData.find( function(x) { return x.eventName == event_id } );
-
-      // $("#name-event").val(data.eventName);
-      // $("#loc-event").val(data.eventLoc);
+      });
     };
 
     function setData() {
-        var event_name = $("#name-event").val().trim();
-        var event_loc = $("#loc-event").val().trim();
+      editForm;
+        // var event_name = $("#name-event").val().trim();
+        // var event_loc = $("#loc-event").val().trim();
 
+        $("body").removeClass();
     };
 
     function resetForm() {
       var div = $("<div>")
+      div.append(guest_field);
+      div.append(amount_field);
 
+      console.log("cancel");
 
       current_form.find(".guest-list").html(div);
+      editForm.find(".guest-list").html(div);
+
       current_form.find("input").val("");
     };
+
       $(document).ready(function(){
 
         $("#loginBtn").on("click", function(){
@@ -372,39 +419,46 @@ function isInt(value) { //for later
         });
 // Add new guest
         $(".add-guest-btn").on("click touchend", function(event) {
-           var guestInputs = $(".guest-list");
-           // var i = guestInputs.find(".guest").length + 1;
-           // var add_input = $(guest_field).attr("data-index", i);
+          var guestInputs = $(".guest-list");
+          // var i = guestInputs.find(".guest").length + 1;
+          // var add_input = $(guest_field).attr("data-index", i);
 
-          var div = $("<div>")
-           div.append(guest_field);
-          div.append(amount_field);
-           guestInputs.append(div);
+          var div = $('<div class="group-entry">')
+          div.append( remove_button + guest_field +  amount_field);
+          guestInputs.append(div);
 
-});
+        });
+        $(".add-edit-btn").on("click touchend", function(event) {
+          var add = $(".edit-form");
+          // var i = guestInputs.find(".guest").length + 1;
+          // var add_input = $(guest_field).attr("data-index", i);
+
+          var div = $('<div class="group-entry">')
+          div.append( remove_button + guest_field +  amount_field);
+          editForm.append(div);
+
+        });
 
 // Add class SELECTED on Event when clicked
-
-
         $("#event-list").on("click touchend", ".event-item", function(event) {
             $(this).parent().find("li").removeClass("SELECTED");
             var target = event.target;
             $(target).addClass("SELECTED");
-            event_id = event_list.find(".SELECTED").attr("id");
+            current_selec = event_id = event_list.find(".SELECTED").attr("id");
 
             console.log(event_id);
 
-            $(".event-title").text(event_id);            
+            $(".event-title").text(event_id);          
             
             database.ref("events").once("value", function(snapshot){
               var data = snapshot.val();
               console.log(data)
+
               $(".event-loc").text(data[event_id].location);
               
               $(".event-amount").text('$'+ data[event_id].amount);
 
-              selectPlace=data[event_id];
-
+              selectPlace = data[event_id];
 
               console.log(selectPlace)
               var users = data[event_id].users;
@@ -427,7 +481,7 @@ function isInt(value) { //for later
         });
 
       });
-
+// ==========
 
 
 
