@@ -74,16 +74,18 @@
  <!-- When in overview this should change to currently selected -->
             <h3 class="event-title">Pub 1</h3>
             <p class="event-loc">location</p>
-            <p>Amount <span>$0</span></p>
+            <p >Total Amount <span class="event-amount">$0</span></p>
+          
 
-
-            <button class="cal-btn">Calculate</button>
+            <button id= "calc" class="cal-btn">Calculate</button>
           </div>
-
+  
           <div id="display">
-
+          
           </div>
         </div>
+
+
  <!-- MAP -->
         <div id="map" class="tab-pane fade map">
           <h3>Map</h3>
@@ -96,27 +98,27 @@
         <div class="mod-content" id="add-mod-content">
           <div class="mod-header">
             <button class="cancel-btn">Cancel</button>
-            <button class="done-btn">Done</button>
+            <button id= 'done'class="done-btn">Done</button>
           </div>  <!-- mod-header -->
           
           <div class="form-wrapper">
             <form action=" " id="event-form">
               <div class="form-group">
-                <input type="text" class="form-control" id="name-event" placeholder="PLACE">
+                <input type="text" class="form-control" id="place-event" placeholder="PLACE">
               </div>
               <div class="form-group">
                 <input type="location" class="form-control" id="loc-event" placeholder="LOCATION">
               </div>
 
               <div class="form-group guest-list">
-                <div>
+<!--                 <div>
                   <input type="text" class="form-control guest" data-index="1" id="name-" placeholder="NAME">
                   <input type="text" class="form-control amount" data-index="1" id="name-" placeholder="AMOUNT">
-                </div>
+                </div> -->
               </div>
             </form>
-            
-            <div class="add-guest-btn" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</a></div>
+            <input id ='adduserdata' type="text" class="form-control" id="name-event" placeholder="Enter Other person">
+            <div id ='adduser' class="add-guest-btn adduser" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</a></div>
           </div>  <!-- form-wrapper -->
 
         </div>  <!-- add-mod-conten -->
@@ -205,219 +207,10 @@
 
 <!--   <script type="text/javascript" src="assets/javascript/logic.js"></script> -->
 
-  <script type="text/javascript" src="assets/javascript/login.js"></script>
+ 
   <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+   <script type="text/javascript" src="assets/javascript/logic.js"></script>
 
-  <script>
-
-    var current_form =  $(".mod-content").find("#event-form");
-    var event_teplate = $('#people-template').html();
-    var event_list = $("#event-list");
-    var person_list = $(".person-list");
-    var mode;
-    var saveInfo;
-
-    var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
-    var amount_field = '<input type="text" class="form-control amount" data-index="1" placeholder="AMOUNT">';
-
-    var event_id = event_list.find(".SELECTED").attr("id");
-
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyDIyoNcQc7sOf_wYKAwMM5CwxFK-z5Ysyc",
-      authDomain: "pub-crawl-21b1d.firebaseapp.com",
-      databaseURL: "https://pub-crawl-21b1d.firebaseio.com",
-      projectId: "pub-crawl-21b1d",
-      storageBucket: "pub-crawl-21b1d.appspot.com",
-      messagingSenderId: "478647783482"
-    };
-    firebase.initializeApp(config);
-
-    var database = firebase.database();
-
-// Child Added
-  database.ref("events").on("child_added", function(snapshot) {
-    data = snapshot.val();
-
-    console.log(data);
-
-    renderList(data);
-  });
-
-// Add New Event
-    function renderList(data) {
-
-      if ( data == null) return;
-
-      event_list.find("li").removeClass("SELECTED");
-      
-      var event_templete = '<li class="list-group-item event-item">';
-        
-      var event_item = $(event_templete);
-
-      event_item.text(data.place).attr("id", data.place).addClass("SELECTED");
-      
-      event_list.prepend(event_item);
-    };
-    function addEvent() {
-        var form = form;
-
-        var event_name = $("#name-event").val().trim();
-        var event_loc = $("#loc-event").val().trim();
-
-        var guestList = $('.guest-list').find(".guest");
-        var userAmount = $('.guest-list').find(".amount");
-
-console.log(userAmount);
-
-        if ( event_name !== "" ) {
-
-
-          var data = {
-            place : event_name,
-            location : event_loc,
-            users: [],
-            amount: 0
-          }
-  
-  
-          for ( var i = 0; i < guestList.length; i++) {
-            var name = $(guestList[i]).val().trim();
-            var amount = $(userAmount[i]).val();
-            
-            data.users.push( [name, amount] );
-          };
-
-
-          database.ref("events/" + event_name).set(data);
-
-        }
-
-        resetForm();
-    };
-    function editEvent(){
-      // var data = eventData.find( function(x) { return x.eventName == event_id } );
-
-      // $("#name-event").val(data.eventName);
-      // $("#loc-event").val(data.eventLoc);
-    };
-
-    function setData() {
-        var event_name = $("#name-event").val().trim();
-        var event_loc = $("#loc-event").val().trim();
-
-    };
-
-    function resetForm() {
-      var div = $("<div>")
-      div.append(guest_field);
-      div.append(amount_field);
-
-      current_form.find(".guest-list").html(div);
-      current_form.find("input").val("");
-    };
-      $(document).ready(function(){
-
-        $("#loginBtn").on("click", function(){
-            $("#loginModal").modal();
-            // console.log("GO");
-        });
-
-        // On click for Add and Edit button
-        $(".section-header").on("click touchend", "button", function(event) {
-            var target = $(this);
-            var active = target.parents(".active").attr("id");
-            $("#name-event").focus();
-            
-            if ( $(target).hasClass("add-btn") ) {
-              $("body").addClass("ADDING");
-              mode = "ADD";
-              // ADD event function
-              // Set function to addEvent
-              saveData = addEvent;
-
-            }else
-            if ( $(target).hasClass("edit-btn") ) {
-              $("body").addClass("EDITING");
-              mode = "EDIT";
-              // EDIT event function
-              editEvent();
-              // Set function to setData
-              saveData = setData;
-
-            }else {
-
-            }
-            // console.log(target);
-        });
-
-        $(".mod-header").on("click touchend", "button", function(event) {
-            var target = event.target;
-            // console.log( $(target) );
-
-            if ( $(target).hasClass("cancel-btn") ) {
-              // console.log("CANCEL");
-              resetForm();
-            }else
-            if ( $(target).hasClass("done-btn") ) {
-              // console.log("DONE");
-
-              // EDIT EVENT HERE
-              saveData();
-            }
-
-            $("body").removeClass();
-        });
-// Add new guest
-        $(".add-guest-btn").on("click touchend", function(event) {
-          var guestInputs = $(".guest-list");
-          // var i = guestInputs.find(".guest").length + 1;
-          // var add_input = $(guest_field).attr("data-index", i);
-
-          var div = $("<div>")
-          div.append(guest_field);
-          div.append(amount_field);
-          guestInputs.append(div);
-
-        });
-
-// Add class SELECTED on Event when clicked
-        $("#event-list").on("click touchend", ".event-item", function(event) {
-            $(this).parent().find("li").removeClass("SELECTED");
-            var target = event.target;
-            $(target).addClass("SELECTED");
-            event_id = event_list.find(".SELECTED").attr("id");
-
-            console.log(event_id);
-
-            $(".event-title").text(event_id);            
-            
-            database.ref("events").once("value", function(snapshot){
-              var data = snapshot.val();
-
-              $(".event-loc").text(data[event_id].location);
-              
-              var users = data[event_id].users;
-
-              for (var i = 0; i < users.length; i++) {
-                var name = users[i][0];
-                var value = users[i][1];
-
-                console.log(value);
-              }
-              
-              $("#display").html("");
-              
-
-              $("#display").append( );
-
-
-            });
-
-        });
-
-      });
-  </script>
 </body>
 
 </html>

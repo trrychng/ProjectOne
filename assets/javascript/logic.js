@@ -7,7 +7,7 @@ var robertAmount;
 var ryanAmount;
 var entry;
 var users=[];
-
+var selectPlace;
 // function renderButtons() {
 
 //   $("#buttons-view").empty();
@@ -25,73 +25,67 @@ var users=[];
 
 
 
-$("#adduser").on("click", function() { //add user to entry
-	event.preventDefault();  //prevents reload page
-	let newuser="";  //delare variable
+// $("#adduser").on("click", function() { //add user to entry
+// 	event.preventDefault();  //prevents reload page
+// 	let newuser="";  //delare variable
 	
-	newuser = $("#adduserdata").val().trim() //retrieve value in adduserdata 
-	userHtml='<div class="row"><div class="col-lg-6">'+newuser+'</div><div class="col-lg-6"><div class="input-group"></span><span class="input-group-addon">$</span><input id="'+newuser+'" type="text" class="form-control guest" aria-label="Text input with checkbox" value=0 ></div></div></div>' //HTML for new user
+// 	newuser = $("#adduserdata").val().trim() //retrieve value in adduserdata 
+// 	userHtml='<div class="row"><div class="col-lg-6">'+newuser+'</div><div class="col-lg-6"><div class="input-group"></span><span class="input-group-addon">$</span><input id="'+newuser+'" type="text" class="form-control guest" aria-label="Text input with checkbox" value=0 ></div></div></div>' //HTML for new user
   
-	console.log("add user "+newuser) //logging
+// 	console.log("add user "+newuser) //logging
  
-	$("#adduserdata").val(""); //clear field for adduserdata when user is added
-	$("#users").append(userHtml)  //append to user div
+// 	$("#adduserdata").val(""); //clear field for adduserdata when user is added
+// 	$("#users").append(userHtml)  //append to user div
 	
-}); //eof
+// }); //eof
 
 
 
 
-$("#submit").on("click", function() { //adding new entries to event
-	event.preventDefault(); //prevents reload page
 
-	var guests= []; //
-	var data_val=$(".guest") //Grabs array with class of guest
+// add additional jusers
+$(".add-guest-btn").on("click touchend", function(event) {
+	let newuser="";
+	// var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
+ //    var amount_field = '<input type="text" class="form-control amount" data-index="1" placeholder="AMOUNT">';
+    var guestInputs = $(".guest-list");
+    // var i = guestInputs.find(".guest").length + 1;
+    // var add_input = $(guest_field).attr("data-index", i);
+    newuser = $("#adduserdata").val().trim() //retrieve value in adduserdata 
+	userHtml='<div class="row"><div class="col-lg-3">'+newuser+'</div><div class="col-lg-6"><div class="input-group"></span><span class="input-group-addon">$</span><input id="'+newuser+'" type="text" class="form-control guest" aria-label="Text input with checkbox" value=0 ></div></div></div>' //HTML for new user
+ 
+    guestInputs.append(userHtml);
 
-	console.log($(".guest")); //logging
-
-	  
-	entry = $("#entry").val().trim(); //gets location information
-  
-    for (var i=0 ; i<data_val.length; i++){ //populates each data from class with guest
-		let username = $(data_val[i]); //assigns data_val to username 
-		console.log(username); //logging
-		console.log(username.attr("id")); //logging
-		console.log(username.val()); //logging
-		
-		guests.push({  //pushes data to guest array with values from input
-			name : username.attr("id"), //username from id
-			amount : username.val().trim() //from user into
-			});
+});
 
 
-    }
 
-	console.log(guests); //logging for guests object
-  
-  entry = {
-	  location: entry,
-	  GAPI: "google API", //Enter GOOGLE API
-	  YAPI: "Yelp API", //Enter YELP API
-	  guest: guests //guest object push into here
-	  }
-	  
 
-	  data.push({ //top layer of OBJECT
-		event: "EVENT1", //Current placeholder for EVENT1 -- this is the top layer
-		entry: entry //adds object entry to main top layer EVENT
-		});
-	
-	console.log(data); //logging for data object
-  
-  
-  
-    //$(".form-control").val("");  //clears all input
-	
-	let a=data.length-1; //counts the length of data and subjects 1 as array counts from 0 not 1;
-	calculation(a); //passes a to determine which array to calculate
-  
-}); //eof
+
+// $(".mod-header").on("click touchend", "button", function(event) {
+
+//             var target = event.target;
+//             // console.log( $(target) );
+
+//             if ( $(target).hasClass("cancel-btn") ) {
+//               // console.log("CANCEL");
+//               resetForm();
+//             }else
+//             if ( $(target).hasClass("done-btn") ) {
+//               // console.log("DONE");
+//               event.preventDefault();
+//               // EDIT EVENT HERE
+//               newLocation();
+//             }
+
+//             $("body").removeClass();
+//         });
+
+
+
+
+
+
 
 
 // function addEntry(events, cost) {
@@ -108,7 +102,350 @@ $("#submit").on("click", function() { //adding new entries to event
 
 
 
-function calculation(a){
+
+
+
+
+
+function isInt(value) { //for later
+  return !isNaN(value) && 
+         parseInt(Number(value)) == value && !isNaN(parseInt(value, 10));
+}
+    
+
+    var current_form =  $(".mod-content").find("#event-form");
+    var event_teplate = $('#people-template').html();
+    var event_list = $("#event-list");
+    var person_list = $(".person-list");
+    var mode;
+    var saveInfo;
+
+    var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
+    var amount_field = '<input type="text" class="form-control amount" data-index="1" placeholder="AMOUNT">';
+
+    var event_id = event_list.find(".SELECTED").attr("id");
+
+    // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyBRhYl1gkRTO-LWYYjM5C_58wNL7YhtAhM",
+    authDomain: "pubcrawl-c0163.firebaseapp.com",
+    databaseURL: "https://pubcrawl-c0163.firebaseio.com",
+    projectId: "pubcrawl-c0163",
+    storageBucket: "pubcrawl-c0163.appspot.com",
+    messagingSenderId: "823634442750"
+    };
+    
+    firebase.initializeApp(config);
+
+    var database = firebase.database();
+
+// Child Added
+  database.ref("events").on("child_added", function(snapshot) {
+    data = snapshot.val();
+
+    console.log(data);
+
+    renderList(data);
+  });
+
+// Add New Event
+    function renderList(data) {
+
+      if ( data == null) return;
+
+      event_list.find("li").removeClass("SELECTED");
+      
+      var event_templete = '<li class="list-group-item event-item">';
+        
+      var event_item = $(event_templete);
+
+      event_item.text(data.place).attr("id", data.place).addClass("SELECTED");
+      
+      event_list.prepend(event_item);
+    };
+
+
+    function addEvent() {
+        var form = form;
+        var users= []; //
+        var data_val=$(".guest") //Grabs array with class of guests
+
+
+        var event_name = $("#place-event").val().trim();
+        var event_loc = $("#loc-event").val().trim();
+        let sum=0;
+
+
+
+
+
+        if ( event_name !== "" ) {
+
+
+       
+  
+          // for ( var i = 0; i < guestList.length; i++) {
+          //   var name = $(guestList[i]).val().trim();
+          //   var amount = $(userAmount[i]).val();
+            
+          //   data.users.push( [name, amount] );
+          // };
+
+
+
+         for (var i=0 ; i<data_val.length; i++){ //populates each data from class with guest
+		let username = $(data_val[i]); //assigns data_val to username 
+		console.log(username); //logging
+		console.log(username.attr("id")); //logging
+		console.log(username.val()); //logging
+		
+		users.push({  //pushes data to guest array with values from input
+			name : username.attr("id"), //username from id
+			amount : username.val().trim() //from user into
+			});
+
+		console.log(users);
+
+
+
+
+		 sum = sum+parseInt(username.val());
+  	
+
+    	};
+
+    	   var data = {
+            place : event_name,
+            location : event_loc,
+            users: users,
+            amount: sum
+          }
+
+        database.ref("events/" + event_name).set(data);
+
+        }
+
+        resetForm();
+    };
+
+
+
+
+// function newLocation() { //adding new entries to event
+// 	 //prevents reload page
+
+// 	var guests= []; //
+// 	var data_val=$(".guest") //Grabs array with class of guest
+
+// 	console.log($(".guest")); //logging
+
+// 	place = $("#place-event").val().trim(); //gets location information
+// 	location = $("#loc-event").val().trim(); //gets location information
+  
+//     for (var i=0 ; i<data_val.length; i++){ //populates each data from class with guest
+// 		let username = $(data_val[i]); //assigns data_val to username 
+// 		console.log(username); //logging
+// 		console.log(username.attr("id")); //logging
+// 		console.log(username.val()); //logging
+		
+// 		guests.push({  //pushes data to guest array with values from input
+// 			name : username.attr("id"), //username from id
+// 			amount : username.val().trim() //from user into
+// 			});
+
+
+//     };
+
+// 	console.log(guests); //logging for guests object
+  
+//   entry = {
+//   	  place: place,
+// 	  location: location,
+// 	  // GAPI: "google API", //Enter GOOGLE API
+// 	  // YAPI: "Yelp API", //Enter YELP API
+// 	  guest: guests //guest object push into here
+// 	  }
+	  
+
+// 	  data.push({ //top layer of OBJECT
+// 		event: "EVENT1", //Current placeholder for EVENT1 -- this is the top layer
+// 		entry: entry //adds object entry to main top layer EVENT
+// 		});
+	
+// 	console.log(data); //logging for data object
+  
+  
+  
+//     //$(".form-control").val("");  //clears all input
+	
+// 	let a=data.length-1; //counts the length of data and subjects 1 as array counts from 0 not 1;
+// 	// calculation(a); //passes a to determine which array to calculate
+  	
+// }; //eof
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+    function editEvent(){
+      // var data = eventData.find( function(x) { return x.eventName == event_id } );
+
+      // $("#name-event").val(data.eventName);
+      // $("#loc-event").val(data.eventLoc);
+    };
+
+    function setData() {
+        var event_name = $("#name-event").val().trim();
+        var event_loc = $("#loc-event").val().trim();
+
+    };
+
+    function resetForm() {
+      var div = $("<div>")
+
+
+      current_form.find(".guest-list").html(div);
+      current_form.find("input").val("");
+    };
+      $(document).ready(function(){
+
+        $("#loginBtn").on("click", function(){
+            $("#loginModal").modal();
+            // console.log("GO");
+        });
+
+        // On click for Add and Edit button
+        $(".section-header").on("click touchend", "button", function(event) {
+            var target = $(this);
+            var active = target.parents(".active").attr("id");
+            $("#name-event").focus();
+            
+            if ( $(target).hasClass("add-btn") ) {
+              $("body").addClass("ADDING");
+              mode = "ADD";
+              // ADD event function
+              // Set function to addEvent
+              saveData = addEvent;
+
+            }else
+            if ( $(target).hasClass("edit-btn") ) {
+              $("body").addClass("EDITING");
+              mode = "EDIT";
+              // EDIT event function
+              editEvent();
+              // Set function to setData
+              saveData = setData;
+
+            }else {
+
+            }
+            // console.log(target);
+        });
+
+        $(".mod-header").on("click touchend", "button", function(event) {
+            var target = event.target;
+            // console.log( $(target) );
+
+            if ( $(target).hasClass("cancel-btn") ) {
+              // console.log("CANCEL");
+              resetForm();
+            }else
+            if ( $(target).hasClass("done-btn") ) {
+              // console.log("DONE");
+
+              // EDIT EVENT HERE
+              saveData();
+            }
+
+            $("body").removeClass();
+        });
+// // Add new guest
+//         $(".add-guest-btn").on("click touchend", function(event) {
+//           var guestInputs = $(".guest-list");
+//           // var i = guestInputs.find(".guest").length + 1;
+//           // var add_input = $(guest_field).attr("data-index", i);
+
+//           var div = $("<div>")
+//           div.append(guest_field);
+//           div.append(amount_field);
+//           guestInputs.append(div);
+
+//         });
+
+// Add class SELECTED on Event when clicked
+
+
+        $("#event-list").on("click touchend", ".event-item", function(event) {
+            $(this).parent().find("li").removeClass("SELECTED");
+            var target = event.target;
+            $(target).addClass("SELECTED");
+            event_id = event_list.find(".SELECTED").attr("id");
+
+            console.log(event_id);
+
+            $(".event-title").text(event_id);            
+            
+            database.ref("events").once("value", function(snapshot){
+              var data = snapshot.val();
+              console.log(data)
+              $(".event-loc").text(data[event_id].location);
+              
+              $(".event-amount").text('$'+ data[event_id].amount);
+
+              selectPlace=data[event_id];
+
+
+              console.log(selectPlace)
+              var users = data[event_id].users;
+              console.log(users)
+              for (var i = 0; i < users.length; i++) {
+                var name = users[i].name;
+                var value = users[i].amount;
+
+                console.log(name);
+              }
+              
+              $("#display").html("");
+              
+
+              $("#display").append( );
+
+
+            });
+
+        });
+
+      });
+
+
+
+
+$("#calc").on("click touchend", function(event) {
+
+
+
+
+calculation();
+
+	
+
+});
+
+
+
+
+function calculation(){
 	
   let total=0;
   var guests = [];
@@ -119,12 +456,12 @@ function calculation(a){
   var caldata =[];
   let share = 0;
   
-  for(i=0; i < data[a].entry.guest.length; i++ ){ //grabs the sum of entry [0]
-		x = parseInt(data[a].entry.guest[i].amount);
-		guest = data[a].entry.guest[i].name; //grab user name
-		event = data[a].event        // event name
-		entry = data[a].entry.location; //location of entry
-		console.log(guest + " has contributed $" +x+ " to event: " +event+ " at location " + entry +".") //logging
+  for(i=0; i < selectPlace.users.length; i++ ){ //grabs the sum of entry [0]
+		x = parseInt(selectPlace.users[i].amount);
+		guest = selectPlace.users[i].name; //grab user name
+		// event = data[a].event        // event name
+		// entry = data[a].entry.location; //location of entry
+		// console.log(guest + " has contributed $" +x+ " to event: " +event+ " at location " + entry +".") //logging
 
 		caldata.push({ //pushes guest data into array
 		name: guest,
@@ -134,11 +471,11 @@ function calculation(a){
 	total += x; //gets total
 	}
 
-  share = total/data[a].entry.guest.length; // divide total by number of guest to get equal share.
+  share = total/selectPlace.users.length; // divide total by number of guest to get equal share.
   console.log("share amount is "+share) //logging
 
-  $("#allocation").empty(); //clears previous html entries
-  $("#allocation").append("<p>For Location: "+entry+". The split even amount is $" +share+ "</p"); //html append to div for split even amount
+  // $("#display").empty(); //clears previous html entries
+  // $("#display").append("<p>For Location: "+entry+". The split even amount is $" +share+ "</p"); //html append to div for split even amount
   
   console.log(caldata); //logging
   
@@ -146,10 +483,8 @@ function calculation(a){
 }//eof
 
 
-
-
-
 function distribution (caldata, share){
+
 	for(var i=0; i < caldata.length; i++ ){
 		iuser = caldata[i].name; 
 		iamount = caldata[i].amount;
@@ -179,7 +514,7 @@ function distribution (caldata, share){
 					
 					console.log(iuser+ " + " +give+ " to "+xuser+ " - "+give);
 
-					$("#allocation").append("<p>"+iuser+ " gives $" +give+ " to "+xuser+" making "+iuser+" at $"+iamount+" and "+xuser+" at $"+xamount+"</p"); //html append to div allocation for which steps to take.
+					$("#display").append("<p>"+iuser+ " gives $" +give+ " to "+xuser+" making "+iuser+" at $"+iamount+" and "+xuser+" at $"+xamount+"</p"); //html append to div allocation for which steps to take.
 
 					console.log(JSON.stringify(caldata)); //logging after allocation
 				}
@@ -187,26 +522,3 @@ function distribution (caldata, share){
 		}
 	}
 }//eof
-  
-  
-
-
-    
-
-  
-    
- 
-  
-  
-  
-  
-
-
-
-
-function isInt(value) { //for later
-  return !isNaN(value) && 
-         parseInt(Number(value)) == value && !isNaN(parseInt(value, 10));
-}
-    
-
