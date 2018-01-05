@@ -1,4 +1,6 @@
 var events = [];
+var eventCounter = 0;
+
 
 //first user will select number of events and give them names
 $("#eventSubmit").on("click", function(e){
@@ -11,31 +13,50 @@ $("#eventSubmit").on("click", function(e){
     	cost: 0,
     	attendees: []
     }
+//will need to create a form for entering for each persons cost at each place
+    $(".eventList").append(event.title + ":   " + "<br>");
 
+    $(".eventList").append("<form> <input type='text' name='Event' value='' id = 'cost" + eventCounter + "'>");
+    $(".eventList").append("<input type='submit' value='Cost' id='costSubmit" + eventCounter + "'> </form> <br>");
+    eventCounter++;
     events.push(event);
+    costButtons();
 
     console.log("Am i entering this loop")
-	console.log(events);
 })
+//each user will have an object of their own something like this probably needs to be in an array
+$("#userSubmit").on("click", function(e){
+	e.preventDefault();
+	var user = {
+	userName: $("#userName").val().trim(),
+	userNum: counter,
+	total: 0,
+	}
 
+	console.log(user.userName);
+})
+function costButtons(){
+for(var i = 0; i < eventCounter; i++){
+	console.log($("#cost" + i).val());
+	$("#costSubmit" + i).on("click", function(e){
+		e.preventDefault();
+		var pay = $("#cost" + i).val().trim();
+		pay = parseInt(pay);
+		console.log(pay);
+		events[i].cost += pay;
 
+		$(".eventCost").html(event.cost);
+
+		console.log(events[i].cost);	
+	})
+}
+}
 
 
 //They will then add theyre payment info.  How much they spent at each event.
-$("#costSubmit").on("click", function(e){
-	e.preventDefault();
-	var cost = $("#cost").val().trim();
-	cost = parseInt(cost);
-	console.log(cost);
-	events[1].cost += cost;
-
-	console.log(events[1].cost);
-})
-
 
 
 //Each user will do this then the original user can choose to submit when all info is added  
-
 
 
 
