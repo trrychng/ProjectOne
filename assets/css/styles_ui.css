@@ -169,6 +169,11 @@ footer {
 }
 /* ---- nav pills ---- */
 .modal-body { padding:40px 50px; }
+ 
+#map{
+        height: 250px;
+        width: 100%;
+}
 
 /* ==== Media Queries ==== */
 @media only screen and (max-width: 768px) {
