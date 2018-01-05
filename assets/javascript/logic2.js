@@ -590,7 +590,6 @@ function nearBy(data){
 	
 	$("#near").append("<p> Restaurant: " +restaurant.name);
 	$("#near").append("<p> Address: " +restaurant.location.address);
-	$("#near").append("<p> Address: " +restaurant.location.address);
 	$("#near").append("<br>");
 		
 		
@@ -648,7 +647,7 @@ function googleMapAPI(selectPlace) {
 		
         var uluru = {lat: lat, lng: lng};
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 3,
+          zoom: 5,
           center: uluru
         });
         var marker = new google.maps.Marker({
