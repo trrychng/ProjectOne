@@ -138,6 +138,7 @@ function isInt(value) { //for later
 
 
     function addEvent() {
+      currentUser=[]
         var form = form;
         var users= []; //
         var data_val=$(".guest") //Grabs array with class of guests
@@ -256,22 +257,37 @@ function isInt(value) { //for later
 // }; //eof
 
 
-
+let currentUser=[];
 
 // add additional users
 $(".add-guest-btn").on("click touchend", function(event) {
 	let newuser="";
+  
 	var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
-    var amount_field = '<input type="text" class="form-control amount" data-index="1" placeholder="AMOUNT">';
-    var guestInputs = $(".guest-list");
-    var i = guestInputs.find(".guest").length + 1;
-    var add_input = $(guest_field).attr("data-index", i);
-    newuser = $("#adduserdata").val().trim() //retrieve value in adduserdata 
+  var amount_field = '<input type="text" class="form-control amount" data-index="1" placeholder="AMOUNT">';
+  var guestInputs = $(".guest-list");
+  var i = guestInputs.find(".guest").length + 1;
+  var add_input = $(guest_field).attr("data-index", i);
+  newuser = $("#adduserdata").val().trim() //retrieve value in adduserdata 
 	userHtml='<div class="input-group"><span class="input-group-addon">'+ newuser + '</span><input id="'+newuser+'" type="text" class="form-control guest" value=0 placeholder="amount"></div>' //HTML for new user
  
+
+
+  if ( newuser === "" ) {
+    alert("Please enter name");
+  }
+  else if (currentUser.indexOf(newuser) !== -1){
+    alert("The Name "+newuser+" exist! Please enter unique name!");
+
+  }
+  else{
     $("#adduserdata").val("")
     
     guestInputs.append(userHtml);
+    currentUser.push(newuser);
+    console.log(currentUser)
+ }
+
 
  });
 
@@ -315,6 +331,7 @@ $(".add-guest-btn").on("click touchend", function(event) {
             editForm.append(div);
           }
           removeField();
+
       });
     };
     function removeField() {
@@ -387,11 +404,13 @@ $(".add-guest-btn").on("click touchend", function(event) {
 
             if ( $(target).hasClass("cancel-btn") ) {
               // console.log("CANCEL");
+            
               resetForm();
+
             }else
             if ( $(target).hasClass("done-btn") ) {
               // console.log("DONE");
-
+            
               // EDIT EVENT HERE
               saveData();
             }
