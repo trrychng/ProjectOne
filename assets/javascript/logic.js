@@ -419,9 +419,9 @@ $(".add-guest-btn").on("click touchend", function(event) {
             var target = event.target;
             $(target).addClass("SELECTED");
             event_id = event_list.find(".SELECTED").attr("id");
-
+            
             console.log(event_id);
-
+            $("#display").empty();
             $(".event-title").text(event_id);            
             
             database.ref("events").once("value", function(snapshot){
@@ -514,7 +514,7 @@ function calculation(){
 
 
 function distribution (caldata, share){
-
+  
 	for(var i=0; i < caldata.length; i++ ){
 		iuser = caldata[i].name; 
 		iamount = caldata[i].amount;
@@ -585,7 +585,7 @@ function zomatoAPI(lat, lng) {
 	
 function nearBy(data){
 	console.log(data.nearby_restaurants)
-	
+	$("#near").empty();
 	for(i = 0 ; i < data.nearby_restaurants.length; i++)
 	{
 	
