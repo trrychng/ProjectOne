@@ -446,10 +446,10 @@ $(".add-guest-btn").on("click touchend", function(event) {
                 console.log(name);
               }
               
-              $("#display").html("");
+              // $("#display").html("");
               
 
-              $("#display").append( );
+              // $("#display").append( );
 
 
             });
@@ -544,7 +544,8 @@ function distribution (caldata, share){
 					
 					console.log(iuser+ " + " +give+ " to "+xuser+ " - "+give);
 
-					$("#display").append("<p>"+iuser+ " gives $" +give+ " to "+xuser+" making "+iuser+" at $"+iamount+" and "+xuser+" at $"+xamount+"</p"); //html append to div allocation for which steps to take.
+					$("#display").append(
+          "<p>"+iuser+ " gives $" +give+ " to "+xuser+" making "+iuser+" at $"+iamount+" and "+xuser+" at $"+xamount+"</p"); //html append to div allocation for which steps to take.
 
 					console.log(JSON.stringify(caldata)); //logging after allocation
 				}

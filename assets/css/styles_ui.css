@@ -56,7 +56,7 @@ body {
 .event-item.SELECTED { color: #fff; background-color: #3391b7; }
 
 .tab-content {
-	/*border-top: 1px solid #6dbaf1;*/
+	border-top: 1px solid #337ab7;
 }
 
 .section-header, .mod-header { 
@@ -190,7 +190,25 @@ footer {
 	background-color: 
 }
 .venue-item .venue-name { font-weight: 600; }
+.event-amount {
+	margin-left: 5px;
+	font-size: 16px;
+	font-weight: 500;
+	display: inline-block;
+}
 
+#display p {
+	text-align: center;
+	color: #3391b7;
+	font-size: 16px;
+	padding: 15px 0 15px 10px;
+	margin-bottom: 0;
+	border-left: 1px solid #d9d9d9;
+	border-right: 1px solid #d9d9d9;
+	border-bottom: 1px solid #d9d9d9;
+}
+#display p:last-child {
+	border-radius: 0 0 10px 10px;
 }
 /* ==== Media Queries ==== */
 @media only screen and (max-width: 768px) {
