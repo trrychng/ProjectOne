@@ -664,10 +664,14 @@ function googleMapAPI(selectPlace) {
 	
 
 
+
+
 $("#mapbutton").on("click touchend", function(event) {
+    setTimeout(function() {
+      initMap(lat, lng);
+      google.maps.event.trigger(map, 'resize');
+    }, 250);
 
-
-initMap(lat,lng);
 console.log("hi i am on click")
 
 console.log(lat)
