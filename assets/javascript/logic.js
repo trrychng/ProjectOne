@@ -267,8 +267,10 @@ $(".add-guest-btn").on("click touchend", function(event) {
     var i = guestInputs.find(".guest").length + 1;
     var add_input = $(guest_field).attr("data-index", i);
     newuser = $("#adduserdata").val().trim() //retrieve value in adduserdata 
-	userHtml='<div class="row"><div class="col-lg-3">'+newuser+'</div><div class="col-lg-6"><div class="input-group"></span><span class="input-group-addon">$</span><input id="'+newuser+'" type="text" class="form-control guest" aria-label="Text input with checkbox" value=0 ></div></div></div>' //HTML for new user
+	userHtml='<div class="input-group"><span class="input-group-addon">'+ newuser + '</span><input id="'+newuser+'" type="text" class="form-control guest" value=0 placeholder="amount"></div>' //HTML for new user
  
+    $("#adduserdata").val("")
+    
     guestInputs.append(userHtml);
 
  });
@@ -588,9 +590,7 @@ function nearBy(data){
 	
 	var restaurant=data.nearby_restaurants[i].restaurant;
 	
-	$("#near").append("<p> Restaurant: " +restaurant.name);
-	$("#near").append("<p> Address: " +restaurant.location.address);
-	$("#near").append("<br>");
+	$("#near").append('<div class="venue-item"><li class="venue-name">' +restaurant.name + '<li class="venue-address">' + restaurant.location.address);
 		
 		
 		

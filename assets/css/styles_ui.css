@@ -157,9 +157,10 @@ body.EDITING #edit.mod {
 
 .guest,
 .amount { 
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 	margin-bottom: 10px;
 }
+.input-group { margin-bottom: 10px; }
 
 footer {
 	padding: 10px 0;
@@ -174,7 +175,23 @@ footer {
         height: 250px;
         width: 100%;
 }
+/* ---- MAPS ---- */
+.map #near { margin-bottom: 10px; }
+.map #near li { 
+	list-style: none;
+}
+.map .venue-item {
+	padding: 5px 0 5px 10px;
+	border-bottom: 1px solid #bfbfbf;
+}
+.map .venue-item:last-child { border-bottom: none; }
 
+.map .venue-item { 
+	background-color: 
+}
+.venue-item .venue-name { font-weight: 600; }
+
+}
 /* ==== Media Queries ==== */
 @media only screen and (max-width: 768px) {
 	.nav-pills>li {
