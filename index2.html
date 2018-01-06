@@ -43,7 +43,7 @@
         <ul class="nav nav-pills nav-justified">
           <li class="active"><a data-toggle="pill" href="#event">Events</a></li>
           <li><a data-toggle="pill" href="#overview">Overview</a></li>
-          <li><a data-toggle="pill" href="#maptab">Map</a></li>
+          <li><a data-toggle="pill" id ="mapbutton" href="#maptab">Map</a></li>
         </ul>
 
       </div>
@@ -74,7 +74,7 @@
  <!-- When in overview this should change to currently selected -->
             <h3 class="event-title">Pub 1</h3>
             <p class="event-loc">location</p>
-            <p >Total Amount <span class="event-amount">$0</span></p>
+            <p>Total Amount <span class="event-amount">$0</span></p>
           
 
             <button id= "calc" class="cal-btn">Calculate</button>
@@ -97,7 +97,7 @@
 		  <h3>Restaurants near by </h3>
 		  <div id="near">
 		  </div>
-          <p> </p>
+
         </div>
       </div> <!-- nav-pills -->
 
@@ -126,7 +126,7 @@
               </div>
             </form>
             <input id ='adduserdata' type="text" class="form-control" id="name-event" placeholder="Enter Other person">
-            <div id ='adduser' class="add-guest-btn adduser" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</a></div>
+            <div id ='adduser' class="add-guest-btn adduser" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Person</a></div>
           </div>  <!-- form-wrapper -->
 
         </div>  <!-- add-mod-conten -->
@@ -146,7 +146,7 @@
               <div class="form-group "></div> <!-- remove guest-list" -->
             </form>
             
-            <div class="add-edit-btn" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</a></div>
+            <div class="add-edit-btn" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Person</a></div>
           </div>  <!-- form-wrapper -->
 
         </div>  <!-- add-mod-conten -->
@@ -203,7 +203,7 @@
 
  
   <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-  <script type="text/javascript" src="assets/javascript/logic2.js"></script>
+  <script type="text/javascript" src="assets/javascript/logic.js"></script>
   
    <script async defer 
    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE2QXwu_BlcPaXEGiKqajbr0pGwKnF3dM&callback=initMap">
