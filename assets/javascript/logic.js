@@ -261,14 +261,16 @@ let currentUser=[];
 
 // add additional users
 $(".add-guest-btn").on("click touchend", function(event) {
+  var form_Wrapper = $(this).closest(".form-wrapper");
 	let newuser="";
   
 	var guest_field = '<input type="text" class="form-control guest" data-index="1" placeholder="NAME">';
   var amount_field = '<input type="text" class="form-control amount" data-index="1" placeholder="AMOUNT">';
-  var guestInputs = $(".guest-list");
+  var guestInputs = form_Wrapper.find(".guest-list");
   var i = guestInputs.find(".guest").length + 1;
   var add_input = $(guest_field).attr("data-index", i);
-  newuser = $("#adduserdata").val().trim() //retrieve value in adduserdata 
+  newuser = form_Wrapper.find(".add-person").val().trim() //retrieve value in adduserdata 
+  form_Wrapper.find(".add-person").val("");
 	userHtml='<div class="input-group"><span class="input-group-addon">'+ newuser + '</span><input id="'+newuser+'" type="text" class="form-control guest" value=0 placeholder="amount"></div>' //HTML for new user
  
 
@@ -304,52 +306,35 @@ $(".add-guest-btn").on("click touchend", function(event) {
     var amount_field = '<input type="text" class="form-control amount" data-index="1" placeholder="AMOUNT">';
     var current_selec;
     var event_id = event_list.find(".SELECTED").attr("id");
-    var editForm = $("#edit-form");
+    
     var remove_button = '<span class="glyphicon glyphicon-remove-circle remove-btn"></span>';
 
-
-    function editEvent() {
-      editForm.empty();
-      var eventName_input = $('#edit-name-event');
-      var eventLoc_input = $('#edit-loc');
-      var guestName_input = '<input type="text" class="form-control guest" data-index="0" placeholder="NAME">';
-      var appendItems = [];
-      var editInputs = $(".edit-list");
-      database.ref("events").once("value", function(snapshot){
-          var data = snapshot.val();
-          
-          var users = data[current_selec].users;
-          for (var i = 0; i < users.length; i++ ) {
-            var name = users[i].name;
-            var amount = users[i].amount;
-            var guestInput = guest_field;
-            var amountInput = amount_field;
-            var div = $('<div class="group-entry">')
-            div.html( remove_button + guestInput +  amountInput);
-            div.find(".guest").val(name);
-            div.find(".amount").val(amount);
-            editForm.append(div);
-          }
-          removeField();
-
-      });
-    };
     function removeField() {
       $(".remove-btn").on("click touchend", function() {
           $(this).parent().remove();
       });
     };
+    function editEvent() {
+      var editForm = $("#edit-form");
+      editForm.empty();
 
+      var dataUsers = selectPlace.users;
 
+      var span = '<span class="input-group-addon"></span';
+      var input = '<input type="text" class="form-control guest" value=0 placeholder="amount">';
+      
+      for (var i = 0; i < dataUsers.length; i++ ) {
 
+        var div = $('<div class="input-group"></div>');
 
-    function editEvent(){
-      // var data = eventData.find( function(x) { return x.eventName == event_id } );
+        var field_name = $(span).text(dataUsers[i].name);
+        var field_amount = $(input).attr("value", dataUsers[i].amount);
 
-      // $("#name-event").val(data.eventName);
-      // $("#loc-event").val(data.eventLoc);
+        div.append(field_name, field_amount);
+
+        editForm.append(div);
+      }
     };
-
     function setData() {
         var event_name = $("#name-event").val().trim();
         var event_loc = $("#loc-event").val().trim();

@@ -195,7 +195,7 @@
 
  
   <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-  <script type="text/javascript" src="assets/javascript/logic.js"></script>
+  <!-- <script type="text/javascript" src="assets/javascript/logic.js"></script> -->
 
   <script>
 
@@ -219,17 +219,17 @@
 
 
     // Initialize Firebase
-    // var config = {
-    //   apiKey: "AIzaSyDIyoNcQc7sOf_wYKAwMM5CwxFK-z5Ysyc",
-    //   authDomain: "pub-crawl-21b1d.firebaseapp.com",
-    //   databaseURL: "https://pub-crawl-21b1d.firebaseio.com",
-    //   projectId: "pub-crawl-21b1d",
-    //   storageBucket: "pub-crawl-21b1d.appspot.com",
-    //   messagingSenderId: "478647783482"
-    // };
-    // firebase.initializeApp(config);
+    var config = {
+      apiKey: "AIzaSyBRhYl1gkRTO-LWYYjM5C_58wNL7YhtAhM",
+      authDomain: "pubcrawl-c0163.firebaseapp.com",
+      databaseURL: "https://pubcrawl-c0163.firebaseio.com",
+      projectId: "pubcrawl-c0163",
+      storageBucket: "pubcrawl-c0163.appspot.com",
+      messagingSenderId: "823634442750"
+    };
+    firebase.initializeApp(config);
 
-    // var database = firebase.database();
+    var database = firebase.database();
 
 // Child Added
   database.ref("events").on("child_added", function(snapshot) {
