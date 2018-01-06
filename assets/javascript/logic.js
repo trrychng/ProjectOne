@@ -465,7 +465,7 @@ $("#calc").on("click touchend", function(event) {
 
 
 
-
+$("#display").empty();
 calculation();
 
 	
