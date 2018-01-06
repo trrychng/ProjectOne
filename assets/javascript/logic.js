@@ -665,7 +665,7 @@ function googleMapAPI(selectPlace) {
 
 
 $("#mapbutton").on("click touchend", function(event) {
-setTimeout(google.maps.event.trigger(map, 'resize'), 2000)
+
 
 initMap(lat,lng);
 console.log("hi i am on click")
