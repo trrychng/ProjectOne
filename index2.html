@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <!-- Required meta tags -->
+    <meta charset="utf-8">
+  <title>Pub Crawler</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    
+    
+    <link rel="stylesheet" href="./assets/css/styles_ui.css">
+
+</head>
+
+<body>
+
+<div class="container outter-wrapper">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> 
+          </button>
+          <a class="navbar-brand" href="#">Pub Crawler</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+ 
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Username</a></li>
+            <li id="login-button"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+        </div>
+      </div> <!-- container-fluid 1 -->
+    </nav>
+    
+    <div class="stage">
+ <!-- tab button -->
+      <div class="tab-buttons">
+        <ul class="nav nav-pills nav-justified">
+          <li class="active"><a data-toggle="pill" href="#event">Events</a></li>
+          <li><a data-toggle="pill" href="#overview">Overview</a></li>
+          <li><a data-toggle="pill" href="#maptab">Map</a></li>
+        </ul>
+
+      </div>
+      <div class="tab-content">
+
+ <!-- EVENTS -->
+        <div id="event" class="tab-pane fade in active events">
+          <div class="section-header">
+
+            <button id="addEvent-btn" class="add-btn">
+              <span class="glyphicon glyphicon-plus"> </span>
+            </button>
+
+            <button class="edit-btn">
+              <span>Edit</span>
+              <span class="glyphicon glyphicon-edit"> </span>
+            </button>
+          </div>
+
+          <ul class="list-group" id="event-list">
+            <!-- <li class="list-group-item event-item SELECTED" id="Event 1">Event 1</li> -->
+
+          </ul>
+        </div>
+ <!-- OVERVIEW -->
+        <div id="overview" class="tab-pane fade overview">
+          <div class="section-header">
+ <!-- When in overview this should change to currently selected -->
+            <h3 class="event-title">Pub 1</h3>
+            <p class="event-loc">location</p>
+            <p >Total Amount <span class="event-amount">$0</span></p>
+          
+
+            <button id= "calc" class="cal-btn">Calculate</button>
+          </div>
+  
+          <div id="display">
+          
+          </div>
+        </div>
+
+
+ <!-- MAP -->
+        <div id="maptab" class="tab-pane fade map">
+          <h3>Map</h3>
+		  <div id="map"></div>
+		  
+		  
+		  
+		  
+		  <h3>Restaurants near by </h3>
+		  <div id="near">
+		  </div>
+          <p> </p>
+        </div>
+      </div> <!-- nav-pills -->
+
+<!-- Add mod slides up -->
+      <div id="add" class="mod">
+        <div class="mod-content" id="add-mod-content">
+          <div class="mod-header">
+            <button class="cancel-btn">Cancel</button>
+            <button id= 'done'class="done-btn">Done</button>
+          </div>  <!-- mod-header -->
+          
+          <div class="form-wrapper">
+            <form action=" " id="event-form">
+              <div class="form-group">
+                <input type="text" class="form-control" id="place-event" placeholder="PLACE">
+              </div>
+              <div class="form-group">
+                <input type="location" class="form-control" id="loc-event" placeholder="LOCATION">
+              </div>
+
+              <div class="form-group guest-list">
+<!--                 <div>
+                  <input type="text" class="form-control guest" data-index="1" id="name-" placeholder="NAME">
+                  <input type="text" class="form-control amount" data-index="1" id="name-" placeholder="AMOUNT">
+                </div> -->
+              </div>
+            </form>
+            <input id ='adduserdata' type="text" class="form-control" id="name-event" placeholder="Enter Other person">
+            <div id ='adduser' class="add-guest-btn adduser" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</a></div>
+          </div>  <!-- form-wrapper -->
+
+        </div>  <!-- add-mod-conten -->
+
+      </div>  <!-- add mod -->
+
+<!-- Edit mod slides up -->
+      <div id="edit" class="mod">
+        <div class="mod-content" id="add-mod-content">
+          <div class="mod-header">
+            <button class="cancel-btn">Cancel</button>
+            <button class="done-btn">Done</button>
+          </div>  <!-- mod-header -->
+          
+          <div class="form-wrapper">
+            <form action=" " id="edit-form">
+              <div class="form-group "></div> <!-- remove guest-list" -->
+            </form>
+            
+            <div class="add-edit-btn" id="scroll-here" ><a href="#scroll-here"><span class="glyphicon glyphicon-plus-sign"></span> Add Guest</a></div>
+          </div>  <!-- form-wrapper -->
+
+        </div>  <!-- add-mod-conten -->
+
+      </div>  <!-- edit mod -->
+  </div> <!-- stage -->
+
+  <!-- Login window content -->
+<!--   <div class="modal fade" id="loginModal" role="dialog">
+    <div class="modal-dialog">
+    
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Login</h4>
+        </div>
+        <div class="modal-body" >
+          <form role="form">
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+              <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+              <input type="text" class="form-control" id="psw" placeholder="Enter password">
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="" checked>Remember me</label>
+            </div>
+              <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <p><a href="#">Sign Up</a></p>
+
+          <p><a href="#">Sign Up</a> / Forgot <a href="#">Password?</a></p>
+        </div>
+      </div>
+      
+    </div> -->  <!-- Modal -->
+
+  <footer class="footer">
+      <span class="text-muted">2018</span>
+  </footer>
+</div> <!-- container -->
+
+
+<!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+ 
+  <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+  <script type="text/javascript" src="assets/javascript/logic2.js"></script>
+  
+   <script async defer 
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE2QXwu_BlcPaXEGiKqajbr0pGwKnF3dM&callback=initMap">
+    </script>
+
+</body>
+
+</html>

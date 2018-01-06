@@ -19,11 +19,13 @@
 <div id = "map"></div>
 
 <script>
-	var latit;
-	var long;
+$("#maptab").on("click", function(){
+	var latit = 0;
+	var long = 0;
 	var x = document.getElementById("map");
 
-function getLocation() {
+	function initMap() {
+
 	console.log("is this being called first?");
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -31,15 +33,23 @@ function getLocation() {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 
-    // console.log(navigator.geolocation.getCurrentPosition(showPosition));
-}
-	function initMap() {
+    function showPosition(position) {
+	console.log("is this being called second?");
+    latit = position.coords.latitude; 
+    long = position.coords.longitude;
+    console.log(latit);
+    console.log(long);
+    initMap();
+	}
+
+
 		console.log("is this being called third?");
 		console.log(latit);
 		console.log(long);
+
 		var location = {lat: latit, lng: long};
 		var map = new google.maps.Map(document.getElementById("map"), {
-			zoom: 10,
+			zoom: 14,
 			center: location
 		});
 		var marker = new google.maps.Marker({
@@ -47,16 +57,8 @@ function getLocation() {
 			map: map
 		})
 	}
-function showPosition(position) {
-	console.log("is this being called second?");
-    latit = position.coords.latitude; 
-    long = position.coords.longitude;
-    console.log(latit);
-    console.log(long);
-    initMap();
-}
+})
 
-getLocation();
 </script>
 <script async defer src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBcdn9swuJs48KM8YOZhNlAT6uIz_ytGjw&libraries=places&callback=initMap"></script>
 
