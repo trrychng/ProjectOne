@@ -643,18 +643,38 @@ function googleMapAPI(selectPlace) {
 }
 	
 	
+
+
+$("#mapbutton").on("click touchend", function(event) {
+setTimeout(google.maps.event.trigger(map, 'resize'), 2000)
+
+initMap(lat,lng);
+console.log("hi i am on click")
+
+console.log(lat)
+
+
+  
+
+});
+
+
+
  function initMap(lat, lng) {
-		
-		
-        var uluru = {lat: lat, lng: lng};
+      var uluru = {lat: lat, lng: lng};
+      console.log(lat);
+      console.log(lng);
+      console.log(uluru);
+
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 5,
+          zoom: 18,
           center: uluru
         });
         var marker = new google.maps.Marker({
           position: uluru,
           map: map
         });
-		
+    console.log(map)
+    console.log(marker)
+
   }
-	
