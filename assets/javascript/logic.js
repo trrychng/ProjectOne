@@ -336,8 +336,6 @@ $(".add-guest-btn").on("click touchend", function(event) {
       }
     };
     function setData() {
-        var event_name = $("#name-event").val().trim();
-        var event_loc = $("#loc-event").val().trim();
 
     };
 
